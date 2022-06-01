@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_01_085727) do
+
+ActiveRecord::Schema.define(version: 2022_05_31_143815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,4 +73,5 @@ ActiveRecord::Schema.define(version: 2022_06_01_085727) do
   add_foreign_key "items", "users"
   add_foreign_key "orders", "items"
   add_foreign_key "orders", "users"
+
 end
