@@ -19,7 +19,6 @@ class ItemsController < ApplicationController
   def create
     @item=Item.new(post_params)
     @item.user= current_user
-    byebug
     if @item.save
       redirect_to @item
     else

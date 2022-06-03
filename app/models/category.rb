@@ -1,4 +1,4 @@
 class Category < ApplicationRecord
-  belongs_to :item
+  has_and_belongs_to_many :items
   belongs_to :user
 end

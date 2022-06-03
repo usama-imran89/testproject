@@ -1,0 +1,20 @@
+<h1>Category</h1>
+<ul>
+  <%@categories_items.each do |categories_items| %>
+   <%@categories.each do |category|%>
+    <%if category.id == categories_items.category_id%>
+    <li>
+      <%=category.name%>
+    </li>
+    <% end %>
+   <% end %>
+  <% end %>
+</ul>
+<% if current_user.role == "admin"%>
+  <ul>
+    <li>
+      <%=link_to "Add New Category",  new_category_path%>
+    </li>
+  <ul>
+<%end%>
+
