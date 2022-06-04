@@ -1,5 +1,23 @@
 <h1><%= @category.name %></h1>
+<% @categories_items.each do |categories_items|%>
+  <% if categories_items.category_id == @category.id%>
+     <%@items.each do |item|%>
+         <% if categories_items.item_id== item.id%>
+         <ul>
+          <li>
+          Title:
+          <%=item.title%>
+         </li>
+         <li>
+         Description:
+          <%=item.description%>
+         </li>
+         </ul>
+
+         <% end %>
+      <% end %>
+  <% end %>
+<% end %>
+<%=link_to "Add new Item", new_category_item_path(@category,@item)%>
+<br/>
 <%=link_to "All Categories",   categories_path%>
-<%@category.each do |item|%>
-  <%=item.title%>
-<%end%>

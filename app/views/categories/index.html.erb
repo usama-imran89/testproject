@@ -1,13 +1,11 @@
 <h1>Category</h1>
 <ul>
-  <%@categories_items.each do |categories_items| %>
    <%@categories.each do |category|%>
-    <%if category.id == categories_items.category_id%>
-    <li>
-      <%=category.name%>
-    </li>
-    <% end %>
-   <% end %>
+
+     <%=category.name%>
+     <%=link_to "Show", category_path(category)%>
+     <br/>
+
   <% end %>
 </ul>
 <% if current_user.role == "admin"%>

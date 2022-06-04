@@ -12,15 +12,20 @@ class ItemsController < ApplicationController
 
 
   def new
+   @category=Category.find(params[:category_id])
     @item=Item.new
+
   end
 
 
   def create
-    @item=Item.new(post_params)
-    @item.user= current_user
+    @category=Category.find(params[:category_id])
+    #@item.user= current_user
+    byebug
+    @item=@category.items.new(post_params)
+    #@item.category=@category
     if @item.save
-      redirect_to @item
+      redirect_to @category
     else
       render :new, status: :unprocessable_entity
     end
