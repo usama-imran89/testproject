@@ -8,7 +8,6 @@ class CategoryController < ApplicationController
 
 
   def new
-     byebug
     @category=Category.new
   end
 
