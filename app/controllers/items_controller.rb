@@ -12,14 +12,17 @@ class ItemsController < ApplicationController
 
 
   def new
+   @category=Category.find(params[:category_id])
     @item=Item.new
+
   end
 
 
   def create
+    @category=Category.find(params[:category_id])
+    #@item.user= current_user
     @item=Item.new(post_params)
-    @item.user= current_user
-    byebug
+    #@item.categories=@category
     if @item.save
       redirect_to @item
     else
