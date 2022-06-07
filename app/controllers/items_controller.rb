@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
-
+  before_action do
+    @category=Category.find(params[:category_id])
+  end
 
   def index
     @items=Item.all
@@ -12,19 +14,14 @@ class ItemsController < ApplicationController
 
 
   def new
-   @category=Category.find(params[:category_id])
     @item=Item.new
-
   end
-
-
   def create
-    @category=Category.find(params[:category_id])
-    #@item.user= current_user
-    @item=Item.new(post_params)
-    #@item.categories=@category
+    @item=@category.items.new(post_params)
+    @item.categories_items.build(category_id:@category.id)
+    @item.user_id = current_user.id
     if @item.save
-      redirect_to @item
+      redirect_to category_path(@category)
     else
       render :new, status: :unprocessable_entity
     end
@@ -43,6 +40,8 @@ class ItemsController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
+
+
 
   private
 

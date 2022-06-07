@@ -1,0 +1,2 @@
+module CategoriesItemsHelper
+end

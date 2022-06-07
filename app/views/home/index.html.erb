@@ -1,29 +1,13 @@
-<div class="d-flex align-items-center justify-content-center">
-<h1>Welcome To Dinner Dash</h1>
-</div>
+<div class="text-center">
+  <h1>Welcome To Dinner Dash</h1>
+
 <% if current_user %>
-<ul>
-<li>
-<%=link_to "Sign out" , destroy_user_session_path, method: :delete%>
-</li>
-<li>
-<%=link_to "Edit profile",  edit_user_registration_path%>
-</li>
-<li>
-<%=link_to "All Categories", categories_path%>
-</li>
-</ul>
+<button class="btn btn-warning btn-lg"><%=link_to "Sign out" , destroy_user_session_path, method: :delete%></button>
+<button class="btn btn-success btn-lg"><%=link_to "Edit profile",  edit_user_registration_path%></button>
+<button type="button" class="btn btn-danger btn-lg"><%=link_to "All Categories", categories_path%></button>
 
 <% else %>
-<ul>
-<li>
-<%=link_to "Sign up" ,new_user_registration_path%>
-</li>
-<li>
-<%=link_to "Sign in" , new_user_session_path%>
-</li>
-</ul>
+<button type="button" class="btn btn-warning btn-lg"><%=link_to "Sign up" ,new_user_registration_path%></button>
+<button type="button" class="btn btn-success btn-lg"><%=link_to "Sign in" , new_user_session_path%></button>
 <% end %>
-
-
-
+</div>
