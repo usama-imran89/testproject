@@ -8,8 +8,11 @@ Rails.application.routes.draw do
   resources :categories do
     resources :items
   end
+  post "categories/:category_id/items/:id", to: 'categories#add_to_cart', as: 'add_to_cart'
+  delete "categories/:category_id/items/:id", to: 'categories#remove_from_cart', as: 'remove_from_cart'
+
   #resources :items
   resources :categories_items
-  #post "/items" , to:"items#create"
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

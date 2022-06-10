@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  before_action :initialize_session
+  before_action :increment_visit_count , only: %i[index, about]
   before_action do
     @category=Category.find(params[:category_id])
   end
@@ -33,9 +35,8 @@ class ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-
     if @item.update(post_params)
-      redirect_to @item
+      redirect_to @category
     else
       render :edit, status: :unprocessable_entity
     end
