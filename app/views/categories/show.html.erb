@@ -12,12 +12,24 @@
          Description:
           <%=item.description%>
          </li>
-         </ul>
+         <li>
+         Price:
+          <%=item.price%>
+         </li>
+         <li>
+           <%=link_to "Add to cat", add_to_cart_path(@category,item), method: :post%>
+         </li>
 
+         </ul>
+         <li>
+         <%=link_to "Edit this Item",  edit_category_item_path(@category,item)%>
+         </li>
          <% end %>
       <% end %>
   <% end %>
 <% end %>
-<%=link_to "Add new Item", new_category_item_path(@category,@item)%>
+<% if current_user.role=="admin" %>
+  <%=link_to "Add new Item", new_category_item_path(@category,@item)%>
+<% end %>
 <br/>
 <%=link_to "All Categories",   categories_path%>
