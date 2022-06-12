@@ -1,4 +1,16 @@
 <h1>Category <%=pluralize @visit_count, 'time'%></h1>
+<details>
+  <summary>
+    <ul>
+      <%@cart.each do |item|%>
+        <li>
+          <%= item.title%>
+        </li>
+      <% end %>
+    </ul>
+  </summary>
+</details>
+
 <ul>
    <%@categories.each do |category|%>
 

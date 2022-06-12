@@ -1,6 +1,4 @@
 class ItemsController < ApplicationController
-  before_action :initialize_session
-  before_action :increment_visit_count , only: %i[index, about]
   before_action do
     @category=Category.find(params[:category_id])
   end
@@ -41,12 +39,20 @@ class ItemsController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
-
+   def destroy
+    remove_from_cart
+   end
 
 
   private
 
   def post_params
     params.require(:item).permit(:title, :description, :price)
+  end
+  def remove_from_cart
+    byebug
+    id = params[:id].to_i
+    session[:cart].delete(id)
+    redirect_to category_path(params[:category_id])
   end
 end

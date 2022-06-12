@@ -17,7 +17,12 @@
           <%=item.price%>
          </li>
          <li>
-           <%=link_to "Add to cat", add_to_cart_path(@category,item), method: :post%>
+          <% if @cart.include?(item)%>
+            <p><%=link_to 'remove from cart', remove_from_cart_path(@category,item), method: :delete%></p>
+
+          <% else %>
+            <%=link_to "Add to cat", add_to_cart_path(@category,item), method: :post%>
+           <% end %>
          </li>
 
          </ul>
