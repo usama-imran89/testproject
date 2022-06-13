@@ -24,7 +24,7 @@
 
          <li>
           <% if @cart.include?(item)%>
-            <p><%=link_to 'remove from cart', remove_from_cart_path(@category,item), method: :delete%></p>
+            <p><%=link_to 'Remove from cart', remove_from_cart_path(@category,item), method: :delete%></p>
 
           <% else %>
             <%=link_to "Add to cat", add_to_cart_path(@category,item), method: :post%>
