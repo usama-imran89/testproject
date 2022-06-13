@@ -17,6 +17,12 @@
           <%=item.price%>
          </li>
          <li>
+           <%if item.avatar.attached?%>
+              <%=image_tag item.avatar, width: "200px"%>
+           <% end %>
+         </li>
+
+         <li>
           <% if @cart.include?(item)%>
             <p><%=link_to 'remove from cart', remove_from_cart_path(@category,item), method: :delete%></p>
 
@@ -29,6 +35,9 @@
          <li>
          <%=link_to "Edit this Item",  edit_category_item_path(@category,item)%>
          </li>
+        <li>
+           <%=link_to "Show this Item", category_item_path(@category,item)%>
+        </li>
          <% end %>
       <% end %>
   <% end %>
