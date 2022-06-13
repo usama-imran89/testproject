@@ -47,10 +47,9 @@ class ItemsController < ApplicationController
   private
 
   def post_params
-    params.require(:item).permit(:title, :description, :price)
+    params.require(:item).permit(:title, :description, :price, :avatar)
   end
   def remove_from_cart
-    byebug
     id = params[:id].to_i
     session[:cart].delete(id)
     redirect_to category_path(params[:category_id])
