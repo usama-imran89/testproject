@@ -3,16 +3,20 @@ class CategoriesController < ApplicationController
   before_action :initialize_session
   before_action :increment_visit_count
   before_action :load_cart
+
+  layout "header"
+
   def index
+
     @categories_items= CategoriesItem.all
     @categories=Category.all
     @items=Item.all
-
   end
   def show
     @category = Category.find(params[:id])
     @categories_items=CategoriesItem.all
     @items=Item.all
+
   end
 
   def edit
@@ -52,7 +56,7 @@ class CategoriesController < ApplicationController
   private
 
   def post_params
-    params.require(:category).permit(:name)
+    params.require(:category).permit(:name, :avatar)
   end
   def initialize_session
     session[:visit_count] ||=0
