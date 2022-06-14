@@ -1,49 +1,60 @@
-<h1><%= @category.name %></h1>
-<% @categories_items.each do |categories_items|%>
-  <% if categories_items.category_id == @category.id%>
-     <%@items.each do |item|%>
-         <% if categories_items.item_id== item.id%>
-         <ul>
-          <li>
-          Title:
-          <%=item.title%>
-         </li>
-         <li>
-         Description:
-          <%=item.description%>
-         </li>
-         <li>
-         Price:
-          <%=item.price%>
-         </li>
-         <li>
-           <%if item.avatar.attached?%>
-              <%=image_tag item.avatar, width: "200px"%>
-           <% end %>
-         </li>
-
-         <li>
-          <% if @cart.include?(item)%>
-            <p><%=link_to 'Remove from cart', remove_from_cart_path(@category,item), method: :delete%></p>
-
-          <% else %>
-            <%=link_to "Add to cat", add_to_cart_path(@category,item), method: :post%>
-           <% end %>
-         </li>
-
-         </ul>
-         <li>
-         <%=link_to "Edit this Item",  edit_category_item_path(@category,item)%>
-         </li>
-        <li>
-           <%=link_to "Show this Item", category_item_path(@category,item)%>
-        </li>
-         <% end %>
-      <% end %>
-  <% end %>
-<% end %>
+<div class="container">
+<%=link_to "All Categories",   categories_path,  class:"btn btn-primary"%>
 <% if current_user.role=="admin" %>
-  <%=link_to "Add new Item", new_category_item_path(@category,@item)%>
+  <%=link_to "Add new Item", new_category_item_path(@category,@item) ,  class:"btn btn-warning"%>
 <% end %>
-<br/>
-<%=link_to "All Categories",   categories_path%>
+
+<h1 class="text-center"><%= @category.name %></h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">Avatar</th>
+       <th scope="col">Check This Item</th>
+      <th scope="col">Wana Add/Remove</th>
+      <% if current_user.role=="admin" %>
+        <th scope="col">Edit Item</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+  <% @categories_items.each do |categories_items|%>
+    <% if categories_items.category_id == @category.id%>
+      <%@items.each do |item|%>
+        <% if categories_items.item_id== item.id%>
+        <tr>
+          <td class="align-middle" > <%=item.title%> </td>
+          <td class="align-middle" > <%=item.description%> </td>
+          <td class="align-middle" > <%=item.price%> </td>
+          <td class="align-middle" ><%=image_tag item.avatar, width: "200px" if item.avatar.attached?%></td>
+          <td class="align-middle">
+            <%=link_to "Show this Item", category_item_path(@category,item),  class:"btn btn-outline-primary"%>
+          </td>
+          <td class="align-middle">
+             <% if @cart.include?(item)%>
+                <%=link_to 'Remove from cart', remove_from_cart_path(@category,item), method: :delete,  class:"btn btn-outline-danger"%>
+
+             <% else %>
+                <%=link_to "Add to cart", add_to_cart_path(@category,item), method: :post,  class:"btn btn-outline-success"%>
+            <% end %>
+          </td class="align-middle">
+          <% if current_user.role=="admin" %>
+          <td class="align-middle">
+           <%=link_to "Edit this Item",  edit_category_item_path(@category,item),  class:"btn btn-outline-warning"%>
+          </td>
+          <% end %>
+
+        </tr>
+
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  </tbody>
+  </table>
+
+</div>

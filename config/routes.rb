@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   get 'categories_items/index'
+  get 'home/index', to: "home#index", as: 'home_page'
   #get 'categories/index'
   #get 'category/index'
   #get 'items/index'
-  root 'home#index'
+  root 'categories#index'
   devise_for :users
   resources :categories do
     resources :items
