@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :carts
+  resources :orders
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get 'categories_items/index'
   get 'home/index', to: "home#index", as: 'home_page'
   #get 'categories/index'

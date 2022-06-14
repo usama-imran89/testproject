@@ -49,9 +49,5 @@ class ItemsController < ApplicationController
   def post_params
     params.require(:item).permit(:title, :description, :price, :avatar)
   end
-  def remove_from_cart
-    id = params[:id].to_i
-    session[:cart].delete(id)
-    redirect_to category_path(params[:category_id])
-  end
+
 end

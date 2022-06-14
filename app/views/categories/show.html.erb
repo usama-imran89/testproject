@@ -1,7 +1,7 @@
 <div class="container">
 <%=link_to "All Categories",   categories_path,  class:"btn btn-primary"%>
 <% if current_user.role=="admin" %>
-  <%=link_to "Add new Item", new_category_item_path(@category,@item) ,  class:"btn btn-warning"%>
+  <%=link_to "Add new Item", new_category_item_path(@category,@item) ,  class:"btn btn-primary"%>
 <% end %>
 
 <h1 class="text-center"><%= @category.name %></h1>
@@ -36,7 +36,6 @@
           <td class="align-middle">
              <% if @cart.include?(item)%>
                 <%=link_to 'Remove from cart', remove_from_cart_path(@category,item), method: :delete,  class:"btn btn-outline-danger"%>
-
              <% else %>
                 <%=link_to "Add to cart", add_to_cart_path(@category,item), method: :post,  class:"btn btn-outline-success"%>
             <% end %>

@@ -45,8 +45,13 @@ class CategoriesController < ApplicationController
     end
   end
   def add_to_cart
-    id = params[:id].to_i
-    session[:cart]<< id unless session[:cart].include?(id)
+    id = params[:id]
+    if session[:cart].include?(id)
+      puts "Hello"
+      #session[:cart][id]+=1
+    else
+      session[:cart][id]=1
+    end
     redirect_to category_path(params[:category_id])
 
   end
@@ -58,18 +63,7 @@ class CategoriesController < ApplicationController
   def post_params
     params.require(:category).permit(:name, :avatar)
   end
-  def initialize_session
-    session[:visit_count] ||=0
-    session[:cart] ||=[]
-  end
-  def load_cart
-    @cart =Item.find(session[:cart])
-  end
 
-  def increment_visit_count
-    session[:visit_count]+=1
-    @visit_count =session[:visit_count]
-  end
   def get_category_item_id
 
     #  {params[:category_id]:{ "id:"=>params[:id]}}
