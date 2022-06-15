@@ -20,7 +20,6 @@ class ApplicationController < ActionController::Base
     @visit_count =session[:visit_count]
   end
   def remove_from_cart
-
     id = params[:id]
     session[:cart].delete(id)
     redirect_to category_path(params[:category_id])
