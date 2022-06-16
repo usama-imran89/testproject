@@ -12,7 +12,9 @@ class ApplicationController < ActionController::Base
     session[:cart] ||=Hash.new
   end
   def load_cart
+
     @cart =Item.find(session[:cart].keys)
+
   end
 
   def increment_visit_count
