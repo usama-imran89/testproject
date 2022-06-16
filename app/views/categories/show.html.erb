@@ -3,7 +3,6 @@
 <% if current_user.role=="admin" %>
   <%=link_to "Add new Item", new_category_item_path(@category,@item) ,  class:"btn btn-primary"%>
 <% end %>
-
 <h1 class="text-center"><%= @category.name %></h1>
 
 <table class="table">
