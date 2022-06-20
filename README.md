@@ -13,7 +13,6 @@ Postgres version: 13.7
 This project is implemented using the rails framework and as such in order to effectively run this project locally, you need to have the version 4 of Rails running on your local development machine. You also need to have at least Ruby 2.1.6 installed to have an awesome experince of the app, as rails is written in ruby.
 
 You also need to make sure that you have Rubygems and Bundler installed. RubyGems is a package management framework for Ruby and bundler is a ruby gem that helps to manage other external dependencies in a rails application.
-
 First of all your need to this command "run bundle install"
 
 * Database creation
