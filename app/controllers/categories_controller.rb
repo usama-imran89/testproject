@@ -7,10 +7,7 @@ class CategoriesController < ApplicationController
   layout "header"
 
   def index
-
-    @categories_items= CategoriesItem.all
     @categories=Category.all
-    @items=Item.all
   end
   def show
     @category = Category.find(params[:id])
@@ -45,7 +42,7 @@ class CategoriesController < ApplicationController
     end
   end
   def add_to_cart
-    id = params[:id]
+    id = params[:id] #receving item id
     if session[:cart].include?(id)
       puts "Hello"
       #session[:cart][id]+=1

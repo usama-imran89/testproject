@@ -1,6 +1,8 @@
 class User < ApplicationRecord
+  validates :fname, :lname, :dname, :email, presence: true
   has_many :items
   has_many :categories
+  has_many :orders
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
