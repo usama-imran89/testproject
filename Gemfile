@@ -3,7 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 gem 'devise'
-gem 'cloudinary', require: false
+gem 'cloudinary', '~> 1.18', '>= 1.18.1'
+gem "figaro"
 gem 'activestorage-cloudinary-service'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.8'
