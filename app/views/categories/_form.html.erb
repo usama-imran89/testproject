@@ -1,0 +1,13 @@
+<%=form_for @category do |form| %>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :avatar%><br>
+      <%= form.file_field :avatar %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

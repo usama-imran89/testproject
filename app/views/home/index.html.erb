@@ -1,0 +1,10 @@
+<div class="text-center">
+  <h1>Welcome To Dinner Dash</h1>
+
+<% if current_user %>
+<button type="button" class="btn btn-danger btn-lg"><%=link_to "All Categories", categories_path%></button>
+
+<% else %>
+<button type="button" class="btn btn-warning btn-lg"><%=link_to "Sign up" ,new_user_registration_path%></button>
+<% end %>
+</div>
