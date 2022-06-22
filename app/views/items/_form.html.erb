@@ -1,4 +1,13 @@
+
 <%=form_for [@category, @item] do |form| %>
+
+  <% if  @item.errors.any? %>
+    <ul>
+    <% @item.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  <% end %>
   <div>
     <%= form.label :title %><br>
     <%= form.text_field :title %>
@@ -11,6 +20,14 @@
    <div>
     <%= form.label :price %><br>
     <%= form.number_field :price%>
+  </div>
+  <div>
+    <%= form.label :quantity %><br>
+    <%= form.number_field :quantity%>
+  </div>
+  <div>
+    <%= form.label :retire, value: false%><br>
+    <%= form.check_box :retire , :checked => false , :value => "0"%>
   </div>
   <div>
     <%= form.label :avatar%><br>
