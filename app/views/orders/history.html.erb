@@ -1,1 +1,24 @@
-<h1>Hello</h1>
+<table class="table container">
+  <thead>
+    <tr>
+      <th scope="col">Order#</th>
+      <th scope="col">Date & Time</th>
+      <th scope="col">Status</th>
+      <th scope="col">Total Price</th>
+      <th scope="col">Detail</th>
+    </tr>
+  </thead>
+  <tbody>
+      <%@orders.each do |order|%>
+         <%if order.user_id==current_user.id%>
+            <tr>
+            <th scope="row"><%=order.id%></th>
+            <td><%=order.created_at%></td>
+            <td><%=order.status%></td>
+            <td><%=order.total_price%></td>
+            <td><%= link_to "Detail", order_path(order) , class:"btn btn-outline-primary"%></td>
+          </tr>
+      <%end%>
+    <%end%>
+  </tbody>
+</table>
