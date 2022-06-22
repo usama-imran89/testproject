@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
   def history
     @orders=Order.all
     @order_details=OrdersItem.all
-    byebug
+
   end
   private
   def check_out

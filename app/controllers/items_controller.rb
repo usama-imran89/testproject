@@ -62,7 +62,6 @@ class ItemsController < ApplicationController
   end
 
   def decrease_item_qty
-    byebug
     id = params[:id] #receving item id
     if session[:cart].include?(id)
       session[:cart][id]-=1
