@@ -6,7 +6,6 @@ class OrdersController < ApplicationController
   def index
   end
   def show
-    byebug
     @order=Order.find(params[:id])
     @order_detail=OrdersItem.where(order_id:@order.id)
     @items=Item.all
@@ -21,6 +20,8 @@ class OrdersController < ApplicationController
     end
   end
   def history
+    @orders=Order.all
+    @order_details=OrdersItem.all
     byebug
   end
   private
