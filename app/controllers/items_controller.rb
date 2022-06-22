@@ -39,15 +39,39 @@ class ItemsController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
-   def destroy
-    remove_from_cart
+
+  def add_to_cart
+      id = params[:id] #receving item id
+      if session[:cart].include?(id)
+        redirect_to category_path(params[:category_id])
+      else
+        session[:cart][id]=1
+      end
+       redirect_to category_path(params[:category_id])
+  end
+  def increase_item_qty
+   id = params[:id] #receving item id
+   if session[:cart].include?(id)
+    session[:cart][id]+=1
    end
+  end
+  def remove_from_cart
+    id = params[:id]
+    session[:cart].delete(id)
+    redirect_to category_path(params[:category_id])
+  end
 
-
+  def decrease_item_qty
+    byebug
+    id = params[:id] #receving item id
+    if session[:cart].include?(id)
+      session[:cart][id]-=1
+    end
+  end
   private
 
   def post_params
-    params.require(:item).permit(:title, :description, :price, :avatar)
+    params.require(:item).permit(:title, :description, :price, :avatar, :retire, :quantity)
   end
-
 end
+

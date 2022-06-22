@@ -1,11 +1,7 @@
 class CategoriesController < ApplicationController
-
   before_action :initialize_session
-  before_action :increment_visit_count
   before_action :load_cart
-
-  layout "header"
-
+  layout "dinnerdash"
   def index
     @categories=Category.all
   end
@@ -41,28 +37,10 @@ class CategoriesController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
-  def add_to_cart
-    id = params[:id] #receving item id
-    if session[:cart].include?(id)
-      puts "Hello"
-      #session[:cart][id]+=1
-    else
-      session[:cart][id]=1
-    end
-    redirect_to category_path(params[:category_id])
-
-  end
-  def about
-
-  end
   private
 
   def post_params
     params.require(:category).permit(:name, :avatar)
   end
 
-  def get_category_item_id
-
-    #  {params[:category_id]:{ "id:"=>params[:id]}}
-  end
 end
