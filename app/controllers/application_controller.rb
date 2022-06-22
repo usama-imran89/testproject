@@ -8,22 +8,9 @@ class ApplicationController < ActionController::Base
 
   end
   def initialize_session
-    session[:visit_count] ||=0
     session[:cart] ||=Hash.new
   end
   def load_cart
-
     @cart =Item.find(session[:cart].keys)
-
-  end
-
-  def increment_visit_count
-    session[:visit_count]+=1
-    @visit_count =session[:visit_count]
-  end
-  def remove_from_cart
-    id = params[:id]
-    session[:cart].delete(id)
-    redirect_to category_path(params[:category_id])
   end
 end

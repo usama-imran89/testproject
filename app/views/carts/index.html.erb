@@ -52,13 +52,13 @@
 
                   <div class="d-flex justify-content-between mb-4">
                     <h5 class="text-uppercase">total items</h5>
-                    <h5><%=@cart.count%></h5>
+                    <h5><%=count_items%></h5>
                   </div>
                   <hr class="my-4">
 
                   <div class="d-flex justify-content-between mb-5">
                     <h5 class="text-uppercase">Total price</h5>
-                    <h5>$ <%=@cart.sum(&:price)%></h5>
+                    <h5>$ <%=cal_price%></h5>
                   </div>
                   <%=link_to "Place Order", orders_path, method: :post,  class:"btn btn-outline-success"%>
                 </div>
