@@ -37,6 +37,10 @@ class CategoriesController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
+  def destroy
+    Category.destroy(params[:id])
+    redirect_to root_path
+  end
   private
 
   def post_params

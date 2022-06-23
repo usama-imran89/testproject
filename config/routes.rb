@@ -6,19 +6,19 @@ Rails.application.routes.draw do
   resources :categories do
     resources :items do
       member do
-        post "increase_item_qty"
-        post "decrease_item_qty"
-        post "add_to_cart"
-        delete "remove_from_cart"
+        post 'increase_item_qty'
+        post 'decrease_item_qty'
+        post 'add_to_cart'
+        delete 'remove_from_cart'
       end
     end
   end
-resources :orders do
-  collection do
-    get "history", to: "orders#history"
+  resources :orders do
+    collection do
+     get 'history', to: 'orders#history'
   end
 
-end
+  end
   resources :orders do
     resources :items
   end
