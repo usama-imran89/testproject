@@ -46,6 +46,10 @@
           <td class="align-middle">
            <%=link_to "Edit this Item",  edit_category_item_path(@category,item),  class:"btn btn-outline-warning"%>
           </td>
+           <td class="align-middle">
+           <%=link_to "Destroy",  category_item_path(@category,item),  method: :delete, class:"btn btn-outline-danger"%>
+          </td>
+
           <% end %>
         </tr>
 

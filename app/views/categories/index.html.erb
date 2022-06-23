@@ -12,6 +12,7 @@
         <td class="align-middle"><%=link_to "Show", category_path(category),  class:"btn btn-primary"%></td>
          <%if current_user && current_user.role=="admin"%>
             <td class="align-middle"><%=link_to "Edit this Category", edit_category_path(category) ,  class:"btn btn-warning"%></td>
+            <td class="align-middle"><%= link_to "Destroy", category_path(category), method: :delete, class:"btn btn-outline-danger" %></td>
           <%end%>
          </tr>
       <% end %>

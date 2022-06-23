@@ -39,7 +39,9 @@ class ItemsController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
-
+  def destroy
+    Item.destroy(params[:id])
+  end
   def add_to_cart
       id = params[:id] #receving item id
       if session[:cart].include?(id)
@@ -50,10 +52,13 @@ class ItemsController < ApplicationController
        redirect_to category_path(params[:category_id])
   end
   def increase_item_qty
-   id = params[:id] #receving item id
-   if session[:cart].include?(id)
-    session[:cart][id]+=1
-   end
+    id = params[:id] #receving item id
+    @item = Item.find(id)
+    if session[:cart].include?(id)
+      if session[:cart][id]+1 <= @item.quantity
+       session[:cart][id]+=1
+      end
+    end
   end
   def remove_from_cart
     id = params[:id]
@@ -62,10 +67,13 @@ class ItemsController < ApplicationController
   end
 
   def decrease_item_qty
-    byebug
     id = params[:id] #receving item id
-    if session[:cart].include?(id)
+    byebug
+    if session[:cart].include?(id) && (session[:cart][id]-1) >=0
       session[:cart][id]-=1
+    end
+    if  session[:cart][id] == 0
+      session[:cart].delete(id)
     end
   end
   private
