@@ -1,6 +1,47 @@
 <div class="container">
 <h1>Edit Item</h1>
-<%=render "form", item:@item%>
+<%=form_for [@category, @item] do |form| %>
+
+  <% if  @item.errors.any? %>
+    <ul>
+    <% @item.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  <% end %>
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description %><br>
+    <%= form.text_area :description%>
+  </div>
+   <div>
+    <%= form.label :price %><br>
+    <%= form.number_field :price%>
+  </div>
+  <div>
+    <%= form.label :quantity %><br>
+    <%= form.number_field :quantity%>
+  </div>
+  <div>
+    <%= form.label :retire, value: false%><br>
+    <%= form.check_box :retire , :checked => false , :value => "0"%>
+  </div>
+  <div>
+    <%= form.label :avatar%><br>
+    <%= form.file_field :avatar %>
+  </div>
+    <div>
+    <%= form.label :category %><br>
+    <%= form.select :new_category, options_from_collection_for_select(Category.all, :id, :name), :selected =>params[:new_category]%>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
 <%=link_to "Back to pervious page" , category_path%>
 
 </div>

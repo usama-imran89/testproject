@@ -25,7 +25,7 @@ development:
   <<: *default
   database: dinnerdash_development
   username: dev
-  password: 123
+  password: Usama8991
   host: localhost
   port: 5432
 
@@ -63,7 +63,7 @@ test:
   <<: *default
   database: dinnerdash_test
   username: dev
-  password: 123
+  password: Usama8991
   host: localhost
   port: 5432
 
