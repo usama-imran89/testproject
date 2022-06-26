@@ -21,18 +21,14 @@
 
             <div class="mx-n5 px-5 py-4" style="background-color: #f2f2f2;">
             <% @items.each do |item|%>
-                    <% @order_detail.each do |detail|%>
-                        <%if item.id==detail.item_id%>
                         <div class="row">
                           <div class="col-md-8 col-lg-9">
-                           <p><%=item.title%></p>
+                          <%=link_to item.title,  item_path(item), style:"color: #f37a27;"%>
                         </div>
                          <div class="col-md-4 col-lg-3">
                             <p>$<%=item.price%></p>
                          </div>
                       </div>
-                        <%end%>
-                    <%end%>
                 <%end%>
             </div>
 
@@ -46,15 +42,10 @@
                </div>
             </div>
             <p class="lead fw-bold mb-4 pb-2" style="color: #f37a27;">Order Status: <span><%=@order.status.capitalize()%></span></p>
-
-            <div class="row">
-              <div class="col-lg-12">
-
-              </div>
-            </div>
-
-            <p class="mt-4 pt-2 mb-0">Want any help? <a href="#!" style="color: #f37a27;">Please contact us</a></p>
-
+            <%=link_to "Change Status", order_path(@order), method: :post, class:"btn btn-outline-primary" if policy(@order).edit?%>
+            <br/>
+            <%=link_to "Back To Main Page", root_path, style:"color: #f37a27;"%>
+            <p class="mt-4 pt-2 mb-0">Want any help? <a href="https://www.devsinc.com/" style="color: #f37a27;">Please contact us</a></p>
           </div>
         </div>
       </div>

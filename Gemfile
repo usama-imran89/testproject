@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 gem 'devise'
+gem 'pundit'
 gem 'cloudinary', '~> 1.18', '>= 1.18.1'
-gem "figaro"
+gem 'figaro'
 gem 'activestorage-cloudinary-service'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.8'
@@ -60,7 +63,14 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
 end
+#for rubocop
+group :development, :test do
+  gem 'rubocop-rspec'
+  gem 'rubocop'
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+  gem 'rubocop-minitest' # or gem 'rubocop-rspec' depending on your test suite
+end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'rails_admin'

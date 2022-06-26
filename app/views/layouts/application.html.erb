@@ -9,8 +9,10 @@
    </head>
 
   <body>
-  <%if notice%>
+  <%if notice %>
    <p class="alert alert-success"><%= notice%></p>
+   <%elsif alert%>
+    <p class="alert alert-success"><%= alert%></p>
   <%end%>
     <%= yield %>
   </body>

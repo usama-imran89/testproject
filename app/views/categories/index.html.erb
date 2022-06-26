@@ -1,7 +1,7 @@
 <div class="container">
-  <%if current_user && current_user.role=="admin"%>
-    <%=link_to "Add New Category",  new_category_path,  class:"btn btn-primary"%>
-  <%end%>
+
+  <%=link_to "Add New Category",  new_category_path,  class:"btn btn-primary" if policy(Category).new?%>
+
   <div class="container text-center">
     <table class="table">
     <tbody>
@@ -10,10 +10,10 @@
         <td class="align-middle"><h4><%=category.name%></h4></td>
         <td> <%=image_tag category.avatar ,width: "400px", height: "150px" if category.avatar.attached?%></td>
         <td class="align-middle"><%=link_to "Show", category_path(category),  class:"btn btn-primary"%></td>
-         <%if current_user && current_user.role=="admin"%>
-            <td class="align-middle"><%=link_to "Edit this Category", edit_category_path(category) ,  class:"btn btn-warning"%></td>
-            <td class="align-middle"><%= link_to "Destroy", category_path(category), method: :delete, class:"btn btn-outline-danger" %></td>
-          <%end%>
+
+          <td class="align-middle"><%=link_to "Edit this Category", edit_category_path(category) ,  class:"btn btn-warning" if policy(category).edit?%></td>
+          <td class="align-middle"><%= link_to "Destroy", category_path(category), method: :delete, class:"btn btn-outline-danger" if policy(category).destroy?%></td>
+
          </tr>
       <% end %>
     </tbody>

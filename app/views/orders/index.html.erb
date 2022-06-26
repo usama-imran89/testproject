@@ -1,0 +1,46 @@
+<div class="container-fluid">
+ <div class="row">
+    <div class="col-2">
+      <%=link_to "Pending Orders", pending_orders_path,  class:"btn btn-outline-primary"%>
+    </div>
+    <div class="col-2">
+      <%=link_to "Delivered Orders", delivered_orders_path,  class:"btn btn-outline-success"%>
+    </div>
+    <div class="col-2">
+      <%=link_to "Canceled Orders",  canceled_orders_path,  class:"btn btn-outline-danger"%>
+    </div>
+  </div>
+
+  <%if @orders&.empty?%>
+  <h1 class="my-4">Nothing to Show</h1>
+  <%else%>
+  <table class="table container">
+  <thead>
+    <tr>
+      <th scope="col">Order#</th>
+      <th scope="col">Date & Time</th>
+      <th scope="col">Status</th>
+      <th scope="col">Total Price</th>
+      <th scope="col">Status</th>
+      <th scope="col">Detail</th>
+    </tr>
+  </thead>
+  <tbody>
+      <%@orders&.each do |order|%>
+
+            <tr>
+            <th scope="row"><%=order.id%></th>
+            <td><%=order.created_at%></td>
+            <td><%=order.status%></td>
+            <td><%=order.total_price%></td>
+            <td><%=order.status%></td>
+            <td><%= link_to "Detail", order_path(order) , class:"btn btn-outline-primary"%></td>
+          </tr>
+
+    <%end%>
+  </tbody>
+</table>
+
+</div>
+
+  <%end%>
