@@ -72,12 +72,12 @@ class ItemsController < ApplicationController
     session[:cart].delete(id)
   end
 
-  def decrease_item_qty
+  def decrease_item_qty # rubocop:disable Metrics/AbcSize
     id = params[:id] # receving item id
-    if session[:cart].include?(id) && (session[:cart][id]-1) >=0
+    if session[:cart].include?(id) && (session[:cart][id] - 1) >= 0
       session[:cart][id] -= 1
     end
-    if  session[:cart].include?(id) && session[:cart][id].zero?
+    if  (session[:cart].include?(id) && session[:cart][id].zero?)
       session[:cart].delete(id)
     end
   end

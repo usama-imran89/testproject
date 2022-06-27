@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
 
   def show
     @order_detail = OrdersItem.where(order_id: @order.id)
-    @items = @order_detail.collect { |detail| Item.where(:id => detail.item_id) }.flatten
+    @items = @order_detail.collect { |detail| Item.where(id: detail.item_id) }.flatten
   end
 
   def create
@@ -29,10 +29,11 @@ class OrdersController < ApplicationController
   end
 
   def edit
+    @order = Order.find(params[:id])
     authorize @order
   end
 
-  def update; end
+  def update;end
 
   def pending
     @orders = @filtered_orders.where(status: 'pending')
@@ -51,7 +52,7 @@ class OrdersController < ApplicationController
 
   private
 
-  def check_out
+  def check_out # rubocop:disable Metrics/AbcSize
     if !session[:cart].empty?
       @order.user_id = current_user.id
       @order.total_price = cal_price
