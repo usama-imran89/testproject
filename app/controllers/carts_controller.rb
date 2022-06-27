@@ -6,8 +6,8 @@ class CartsController < ApplicationController
   layout 'dinnerdash'
   def index
     @cart
-    @categories_items = @cart.collect { |detail| CategoriesItem.where(:item_id=> detail.id) }.flatten
-    @categories = @categories_items.collect { |detail| Category.where(:id=> detail.category_id) }.flatten
+    @categories_items = @cart.collect { |detail| CategoriesItem.where(item_id: detail.id) }.flatten
+    @categories = @categories_items.collect { |detail| Category.where(id: detail.category_id) }.flatten
   end
 
   def count_items

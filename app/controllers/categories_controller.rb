@@ -11,9 +11,10 @@ class CategoriesController < ApplicationController
   def index
     @categories = Category.all
   end
+
   def show
     @categories_items = CategoriesItem.where(category_id: @category.id)
-    @items = @categories_items.collect { |detail| Item.where(:id => detail.item_id) }.flatten
+    @items = @categories_items.collect { |detail| Item.where(id: detail.item_id) }.flatten
   end
 
   def edit
@@ -40,14 +41,14 @@ class CategoriesController < ApplicationController
   def update
     authorize @category
     if @category.update(post_params)
-      redirect_to @category
+      redirect_to @category, notice: "Category Is Updated Successfully"
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    if CategoriesItem.include?(category_id:params[:id])
+    if CategoriesItem.include?(category_id: params[:id])
       redirect_to root_path, notice: 'hwllo'
     else
       Category.destroy(params[:id])

@@ -42,7 +42,7 @@
                </div>
             </div>
             <p class="lead fw-bold mb-4 pb-2" style="color: #f37a27;">Order Status: <span><%=@order.status.capitalize()%></span></p>
-            <%=link_to "Change Status", order_path(@order), method: :post, class:"btn btn-outline-primary" if policy(@order).edit?%>
+            <%=link_to "Change Status",  edit_order_path(@order), class:"btn btn-outline-primary" if policy(@order).edit?%>
             <br/>
             <%=link_to "Back To Main Page", root_path, style:"color: #f37a27;"%>
             <p class="mt-4 pt-2 mb-0">Want any help? <a href="https://www.devsinc.com/" style="color: #f37a27;">Please contact us</a></p>

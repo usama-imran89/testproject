@@ -6,6 +6,6 @@ class Item < ApplicationRecord
   belongs_to :user
   has_many :categories_items, dependent: :delete_all
   has_many :categories, through: :categories_items
-  has_many :orders_items
+  has_many :orders_items # rubocop:disable Rails/HasManyOrHasOneDependent
   has_many :orders, through: :orders_items
 end

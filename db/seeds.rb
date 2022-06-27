@@ -7,6 +7,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Category.create!({ name: 'Burger', user_id: '1' })
+Category.create!({ name: 'Drinks', user_id: '1' })
+Category.create!({ name: 'Pizza', user_id: '1' })
+Category.create!({ name: 'Biryani', user_id: '1' })
 Item.create!({ title: 'Soup', description: 'Corn Soup', price: '22', user_id: '2', retire: '0', quantity: '2' })
 Item.create!({ title: 'Pulao', description: 'Rice', price: '454', user_id: '2', retire: '0', quantity: '55' })
 Item.create!({ title: 'JamySheerin', description: 'Drink', price: '233', user_id: '2', retire: '0', quantity: '2' })
