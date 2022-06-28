@@ -1,7 +1,8 @@
+
 <%=form_for @category do |form| %>
-  <% if @category.errors.any? %>
+  <% if  @category.errors.any? %>
     <ul>
-    <% @category.errors.full_messages.each do |msg| %>
+    <%  @category.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
     <% end %>
     </ul>
@@ -12,7 +13,7 @@
   </div>
   <div>
     <%= form.label :avatar%><br>
-      <%= form.file_field :avatar %>
+    <%= form.file_field :avatar %>
   </div>
   <div>
     <%= form.submit %>

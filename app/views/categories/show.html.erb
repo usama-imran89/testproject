@@ -1,60 +1,76 @@
-<div class="container">
+<div class="container-fluid">
 <%=link_to "All Categories",   categories_path,  class:"btn btn-primary"%>
-<% if current_user && current_user.role=="admin" %>
-  <%=link_to "Add new Item", new_category_item_path(@category,@item) ,  class:"btn btn-primary"%>
+<%=link_to "My Cart", carts_path,  class:"btn btn-warning"%>
+<% if policy(Category).new? %>
+  <%=link_to "Add new Item", new_category_item_path(@category,@item) ,  class:"btn btn-primary float-right"%>
 <% end %>
 <h1 class="text-center"><%= @category.name %></h1>
+<h5 class="text-text-left mx-3">Total Items In Category: <%= @items.count%></h5>
+<br my-5/>
 
+<%if @items&.empty?%>
+  <h1>Nothing To Show</h1>
+<%else%>
 <table class="table">
   <thead>
     <tr>
       <th scope="col">Title</th>
       <th scope="col">Description</th>
       <th scope="col">Price</th>
+      <% if policy(Item).edit? %>
+       <th scope="col">Qty</th>
+      <%end%>
       <th scope="col">Avatar</th>
        <th scope="col">Check This Item</th>
       <th scope="col">Wana Add/Remove</th>
-      <% if current_user && current_user.role=="admin" %>
-        <th scope="col">Edit Item</th>
+      <% if policy(Item).edit? %>
+        <th scope="col">Edit</th>
+        <th scope="col">Destroy</th>
+        <th scope="col">Retire</th>
       <% end %>
     </tr>
   </thead>
   <tbody>
-  <% @categories_items.each do |categories_items|%>
-    <% if categories_items.category_id == @category.id%>
-      <%@items.each do |item|%>
-        <% if categories_items.item_id== item.id%>
-        <tr>
-          <td class="align-middle" > <%=item.title%> </td>
-          <td class="align-middle" > <%=item.description%> </td>
-          <td class="align-middle" > <%=item.price%> </td>
-          <td class="align-middle" ><%=image_tag item.avatar, width: "200px" if item.avatar.attached?%></td>
-          <td class="align-middle">
-            <%=link_to "Show this Item", category_item_path(@category,item),  class:"btn btn-outline-primary"%>
-          </td>
-          <td class="align-middle">
-             <% if @cart.include?(item)%>
-                <%=link_to '+', increase_item_qty_category_item_path(@category, item), method: :post,  class:"btn btn-outline-success"%>
-                <%=link_to 'Remove from cart', remove_from_cart_category_item_path(@category,item), method: :delete,  class:"btn btn-outline-danger"%>
-                <%=link_to '-', decrease_item_qty_category_item_path(@category, item), method: :post,  class:"btn btn-outline-dark"%>
-
-              <% else %>
-                <%=link_to "Add to cart", add_to_cart_category_item_path(@category,item), method: :post,  class:"btn btn-outline-success"%>
-            <% end %>
-          </td class="align-middle">
-          <% if current_user && current_user.role=="admin" %>
-          <td class="align-middle">
-           <%=link_to "Edit this Item",  edit_category_item_path(@category,item),  class:"btn btn-outline-warning"%>
-          </td>
+    <%@items.each do |item|%>
+      <tr>
+        <td class="align-middle" > <%=item.title%> </td>
+        <td class="align-middle" > <%=item.description%> </td>
+        <td class="align-middle" > <%=item.price%> </td>
+        <td class="align-middle" > <%=item.quantity%> </td>
+        <td class="align-middle" ><%=image_tag item.avatar, width: "200px" if item.avatar.attached?%></td>
+        <td class="align-middle">
+        <%=link_to "Show this Item", category_item_path(@category,item),  class:"btn btn-outline-primary"%>
+        </td>
+        <td class="align-middle">
+          <% if @cart.include?(item)%>
+            <%=link_to '+', increase_item_qty_category_item_path(@category, item), method: :post,  class:"btn btn-outline-success"%>
+            <%=link_to 'Remove from cart', remove_from_cart_category_item_path(@category,item), method: :delete,  class:"btn btn-outline-danger"%>
+            <%=link_to '-', decrease_item_qty_category_item_path(@category, item), method: :post,  class:"btn btn-outline-dark"%>
+          <% else %>
+            <%=link_to "Add to cart", add_to_cart_category_item_path(@category,item), method: :post,  class:"btn btn-outline-success"%>
           <% end %>
-        </tr>
-
-        <% end %>
-      <% end %>
+        </td >
+        <td class="align-middle">
+          <%=link_to "Edit this Item",  edit_category_item_path(@category,item),  class:"btn btn-outline-warning" if policy(item).edit?%>
+        </td>
+        <td class="align-middle">
+          <%=link_to "Destroy Item",  category_item_path(@category,item),  method: :delete, class:"btn btn-outline-danger" if policy(item).destroy?%>
+        </td>
+        <%if item&.retire%>
+          <td class="align-middle">
+            <%=link_to "Resume Item", resume_category_item_path(@category,item), method: :post, class:"btn btn-outline-success" if policy(item).edit?%>
+          </td>
+          <%else%>
+          <td class="align-middle">
+            <%=link_to "Rertire Item", retire_category_item_path(@category,item), method: :post, class:"btn btn-outline-dark" if policy(item).edit?%>
+          </td>
+        <%end%>
+      </tr>
     <% end %>
-  <% end %>
-
   </tbody>
   </table>
+
+<%end%>
+
 
 </div>

@@ -1,8 +1,12 @@
-<h1><%= @item.title %></h1>
+<div class="container my-4">
+  <h1>ITEM DETAIL</h1>
+  <br/>
+  <h3>Title:   <%= @item.title %> </h3>
+  <h3>Description: <%= @item.description %></h3>
+  <h3>Price: <%= @item.price %></h3>
+  <h3>Avatar: </h3>
+  <%if @item.avatar.attached?%>
+   <%=image_tag @item.avatar, width: "200px"%>
+  <% end %>
 
-<p><%= @item.description %></p>
-<p><%= @item.price %></p>
-<p>Avatar</p>
-<%if @item.avatar.attached?%>
-  <%=image_tag @item.avatar, width: "200px"%>
-<% end %>
+<div>

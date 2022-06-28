@@ -1,0 +1,23 @@
+
+<div class="container">
+<h1>Edit Item</h1>
+<%=form_for (@order) do |form| %>
+
+  <% if  @order.errors.any? %>
+    <ul>
+    <% @order.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  <% end %>
+  <div>
+    <%= form.label :status %><br>
+    <%= form.select :change_status, Order.statuses, :selected =>params[:new_status]%>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+<%=link_to "Back to pervious page" , category_path%>
+
+</div>

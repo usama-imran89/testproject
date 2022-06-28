@@ -18,7 +18,7 @@
     </li>
   <% end %>
 </ul>
-<% if current_user.role == "admin"%>
+<% if policy(Item).new?%>
   <%=link_to "Add new Item",  new_item_path%>
 <%end%>
 
