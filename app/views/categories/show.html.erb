@@ -3,9 +3,10 @@
 <%=link_to "My Cart", carts_path,  class:"btn btn-warning"%>
 <% if policy(Category).new? %>
   <%=link_to "Add new Item", new_category_item_path(@category,@item) ,  class:"btn btn-primary float-right"%>
+  <br/>
+  <h5 class="text-text-left mx-3">Total Items In Category: <%= @items.count%></h5>
 <% end %>
 <h1 class="text-center"><%= @category.name %></h1>
-<h5 class="text-text-left mx-3">Total Items In Category: <%= @items.count%></h5>
 <br my-5/>
 
 <%if @items&.empty?%>
@@ -33,7 +34,7 @@
   <tbody>
     <%@items.each do |item|%>
       <tr>
-    <%if ((item.retire || !item.retire)  && current_user&.role == 'admin') || (item.retire )%>
+    <%if ((item.retire || !item.retire)  && current_user&.role == 'admin') || (!item.retire )%>
         <td class="align-middle" > <%=item.title%> </td>
         <td class="align-middle" > <%=item.description%> </td>
         <td class="align-middle" > <%=item.price%> </td>
