@@ -5,6 +5,8 @@ class CategoriesController < ApplicationController
   before_action :load_cart
   before_action only: %i[edit show update] do
     @category = Category.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render '/layouts/record_not_found'
   end
   layout 'dinnerdash'
 

@@ -10,9 +10,4 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   enum role: { standard: 0, admin: 1 }
-  after_initialize do
-    if new_record?
-      self.role ||= :standard
-    end
-  end
 end

@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2022_06_22_123533) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
+    t.string "name", default: "", null: false
     t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
@@ -54,14 +54,14 @@ ActiveRecord::Schema.define(version: 2022_06_22_123533) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.integer "price"
-    t.bigint "user_id"
+    t.string "title", default: "", null: false
+    t.text "description", default: "", null: false
+    t.integer "price", default: 5, null: false
+    t.bigint "user_id", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "retire"
-    t.integer "quantity"
+    t.boolean "retire", default: false, null: false
+    t.integer "quantity", default: 1, null: false
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2022_06_22_123533) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "status"
+    t.integer "status", default: 0, null: false
     t.integer "total_price"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 2022_06_22_123533) do
     t.bigint "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "quantity"
+    t.integer "quantity", default: 0
     t.index ["item_id"], name: "index_orders_items_on_item_id"
     t.index ["order_id"], name: "index_orders_items_on_order_id"
   end
@@ -92,10 +92,10 @@ ActiveRecord::Schema.define(version: 2022_06_22_123533) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "role"
-    t.string "fname"
-    t.string "lname"
-    t.string "dname"
+    t.integer "role", default: 0
+    t.string "fname", default: "Xam", null: false
+    t.string "lname", default: ""
+    t.string "dname", default: "Xam"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

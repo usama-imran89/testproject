@@ -33,10 +33,13 @@
   <tbody>
     <%@items.each do |item|%>
       <tr>
+    <%if ((item.retire || !item.retire)  && current_user&.role == 'admin') || (item.retire )%>
         <td class="align-middle" > <%=item.title%> </td>
         <td class="align-middle" > <%=item.description%> </td>
         <td class="align-middle" > <%=item.price%> </td>
-        <td class="align-middle" > <%=item.quantity%> </td>
+        <% if policy(Item).edit? %>
+          <td class="align-middle" > <%=item.quantity%> </td>
+        <%end %>
         <td class="align-middle" ><%=image_tag item.avatar, width: "200px" if item.avatar.attached?%></td>
         <td class="align-middle">
         <%=link_to "Show this Item", category_item_path(@category,item),  class:"btn btn-outline-primary"%>
@@ -66,6 +69,7 @@
           </td>
         <%end%>
       </tr>
+    <%end%>
     <% end %>
   </tbody>
   </table>
