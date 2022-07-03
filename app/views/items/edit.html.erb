@@ -28,7 +28,7 @@
   </div>
   <div>
     <%= form.label :retire, value: false%><br>
-    <%= form.check_box :retire , :checked => false , :value => "0"%>
+    <%= form.check_box :retire , :checked => @item.retire %>
   </div>
   <div>
     <%= form.label :avatar%><br>
@@ -36,7 +36,7 @@
   </div>
     <div>
     <%= form.label :category %><br>
-    <%= form.select :new_category, options_from_collection_for_select(Category.all, :id, :name), :selected =>params[:new_category]%>
+    <%= form.select :new_category, options_from_collection_for_select(Category.all, :id, :name, @category.id), :selected =>params[:new_category]%>
   </div>
   <div>
     <%= form.submit %>

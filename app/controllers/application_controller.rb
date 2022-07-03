@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+
+  def record_not_found
+    render 'record_not_found' # Assuming you have a template named 'record_not_found'
+  end
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   include Pundit::Authorization
