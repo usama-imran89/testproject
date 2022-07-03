@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
   def show
     @order_detail = OrdersItem.where(order_id: @order.id)
     @items = @order_detail.collect { |detail| Item.where(id: detail.item_id) }.flatten
+    @category = @order_detail.collect { |detail| CategoriesItem.where(item_id: detail.item_id) }.flatten
   end
 
   def create
