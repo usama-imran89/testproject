@@ -53,7 +53,7 @@
 
                   <div class="d-flex justify-content-between mb-5">
                     <h5 class="text-uppercase">Total price</h5>
-                    <h5>$ <%=cal_price%></h5>
+                    <h5>$ <%=cal_price(@cart)%></h5>
                   </div>
                   <%=link_to "Place Order", orders_path, method: :post,  class:"btn btn-outline-success"%>
                 </div>

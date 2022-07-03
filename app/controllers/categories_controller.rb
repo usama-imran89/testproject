@@ -43,7 +43,7 @@ class CategoriesController < ApplicationController
   def update
     authorize @category
     if @category.update(post_params)
-      redirect_to @category, notice: "Category Is Updated Successfully"
+      redirect_to @category, notice: 'Category Is Updated Successfully'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -51,7 +51,7 @@ class CategoriesController < ApplicationController
 
   def destroy
     if CategoriesItem.include?(category_id: params[:id])
-      redirect_to root_path, notice: 'hwllo'
+      redirect_to root_path, notice: 'Category Has Been Destroyed'
     else
       Category.destroy(params[:id])
       redirect_to root_path
