@@ -11,6 +11,10 @@ class OrderPolicy < ApplicationPolicy
     end
   end
 
+  def show?
+    record.user_id == user.id
+  end
+
   def edit?
     @user&.admin?
   end
