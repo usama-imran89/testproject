@@ -23,9 +23,7 @@ class ItemsController < ApplicationController
     @item = @category.items.new(post_params)
     @item.categories_items.build(category_id: @category.id)
     @item.user_id = current_user.id
-    unless @item.avatar.attached?
-      @item.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
-    end
+    @item.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg') unless @item.avatar.attached?
     if @item.save
       redirect_to category_path(@category), notice: 'ITEM HAS BEEN CREATED'
     else
@@ -47,7 +45,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    Item.destroy(find_item_by_params(params[:id]))
+    Item.destroy(params[:id])
     redirect_to @category, notice: 'ITEM HAS BEEN DELETED'
   end
 

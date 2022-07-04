@@ -59,7 +59,7 @@ class OrdersController < ApplicationController
   private
 
   def check_out # rubocop:disable Metrics/AbcSize
-    if !session[:cart].empty?
+    unless session[:cart].empty?
       @order.user_id = current_user.id
       @order.total_price = cal_price(@cart)
       @order.save
@@ -70,8 +70,6 @@ class OrdersController < ApplicationController
       session[:cart].clear
     end
   end
-
-
 
   def filtered_orders
     @filtered_orders = policy_scope(Order)

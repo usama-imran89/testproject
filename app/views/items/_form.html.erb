@@ -1,39 +1,39 @@
-
 <%=form_for [@category, @item] do |form| %>
-
-  <% if  @item.errors.any? %>
+<% if  @item.errors.any? %>
     <ul>
-    <% @item.errors.full_messages.each do |msg| %>
+    <%  @item.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
     <% end %>
     </ul>
-  <% end %>
-  <div>
+<% end %>
+<div class="card container my-4" style="width: 25rem;">
+  <div class="card-body">
+    <h3 class="card-title">New Item</h3>
+    <div class="mb-3">
     <%= form.label :title %><br>
     <%= form.text_field :title %>
-  </div>
-
-  <div>
+   </div>
+   <div class="mb-3">
     <%= form.label :description %><br>
     <%= form.text_area :description%>
   </div>
-   <div>
+   <div class="mb-3">
     <%= form.label :price %><br>
     <%= form.number_field :price%>
   </div>
-  <div>
+  <div class="mb-3">
     <%= form.label :quantity %><br>
     <%= form.number_field :quantity%>
   </div>
-  <div>
+  <div class="mb-3">
     <%= form.label :retire, value: false%><br>
-    <%= form.check_box :retire , :checked => false , :value => "0"%>
+    <%= form.check_box :retire , :checked => @item.retire %>
   </div>
-  <div>
+  <div class="mb-3">
     <%= form.label :avatar%><br>
     <%= form.file_field :avatar %>
   </div>
-  <div>
-    <%= form.submit %>
-  </div>
+  <%= form.submit "Create Item", class: "btn btn-primary" %>
+</div>
 <% end %>
+
