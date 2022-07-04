@@ -1,47 +1,42 @@
-<div class="container">
-<h1>Edit Item</h1>
 <%=form_for [@category, @item] do |form| %>
-
-  <% if  @item.errors.any? %>
+<% if  @item.errors.any? %>
     <ul>
-    <% @item.errors.full_messages.each do |msg| %>
+    <%  @item.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
     <% end %>
     </ul>
-  <% end %>
-  <div>
+<% end %>
+<div class="card container my-4" style="width: 25rem;">
+  <div class="card-body">
+    <h3 class="card-title">Edit Item</h3>
+    <div class="mb-3">
     <%= form.label :title %><br>
     <%= form.text_field :title %>
-  </div>
-
-  <div>
+   </div>
+   <div class="mb-3">
     <%= form.label :description %><br>
     <%= form.text_area :description%>
   </div>
-   <div>
+   <div class="mb-3">
     <%= form.label :price %><br>
     <%= form.number_field :price%>
   </div>
-  <div>
+  <div class="mb-3">
     <%= form.label :quantity %><br>
     <%= form.number_field :quantity%>
   </div>
-  <div>
+  <div class="mb-3">
     <%= form.label :retire, value: false%><br>
     <%= form.check_box :retire , :checked => @item.retire %>
   </div>
-  <div>
+  <div class="mb-3">
     <%= form.label :avatar%><br>
     <%= form.file_field :avatar %>
   </div>
-    <div>
+  <div class="mb-3">
     <%= form.label :category %><br>
     <%= form.select :new_category, options_from_collection_for_select(Category.all, :id, :name, @category.id), :selected =>params[:new_category]%>
   </div>
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
-<%=link_to "Back to pervious page" , category_path%>
-
+  <%= form.submit "Update", class: "btn btn-primary" %>
 </div>
+<% end %>

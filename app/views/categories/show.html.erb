@@ -3,7 +3,7 @@
 <%=link_to "My Cart", carts_path,  class:"btn btn-warning"%>
 <% if policy(Category).new? %>
   <%=link_to "Add new Item", new_category_item_path(@category,@item) ,  class:"btn btn-primary float-right"%>
-  <br/>
+  <br my-5/>
   <h5 class="text-text-left mx-3">Total Items In Category: <%= @items.count%></h5>
 <% end %>
 <h1 class="text-center"><%= @category.name %></h1>
@@ -12,70 +12,48 @@
 <%if @items&.empty?%>
   <h1>Nothing To Show</h1>
 <%else%>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Description</th>
-      <th scope="col">Price</th>
+
+<%@items.each do |item|%>
+<%if ((item.retire || !item.retire)  && current_user&.role == 'admin') || (!item.retire )%>
+<div class="row container">
+    <div class="col-md-4 my-4 ">
+      <div class="bg-image hover-overlay shadow-1-strong rounded ripple" data-mdb-ripple-color="light">
+          <%=image_tag item.avatar, width: "200px" if item.avatar.attached?%>
+          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+          </a>
+      </div>
+    </div>
+
+    <div class="col-md-8 mb-4">
+      <h2><%=item.title%></h2>
+      <h4>$<%=item.price%></h4>
       <% if policy(Item).edit? %>
-       <th scope="col">Qty</th>
-      <%end%>
-      <th scope="col">Avatar</th>
-       <th scope="col">Check This Item</th>
-      <th scope="col">Wana Add/Remove</th>
-      <% if policy(Item).edit? %>
-        <th scope="col">Edit</th>
-        <th scope="col">Destroy</th>
-        <th scope="col">Retire</th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <%@items.each do |item|%>
-      <tr>
-    <%if ((item.retire || !item.retire)  && current_user&.role == 'admin') || (!item.retire )%>
-        <td class="align-middle" > <%=item.title%> </td>
-        <td class="align-middle" > <%=item.description%> </td>
-        <td class="align-middle" > <%=item.price%> </td>
-        <% if policy(Item).edit? %>
-          <td class="align-middle" > <%=item.quantity%> </td>
-        <%end %>
-        <td class="align-middle" ><%=image_tag item.avatar, width: "200px" if item.avatar.attached?%></td>
-        <td class="align-middle">
+          <h5>Qty: <%=item.quantity%> </h5>
+      <%end %>
+      <p>
+       Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ratione
+       necessitatibus itaque error alias repellendus nemo reiciendis aperiam quisquam
+       minus ipsam reprehenderit commodi ducimus, in dicta aliquam eveniet dignissimos
+       magni.
+       </p>
         <%=link_to "Show this Item", category_item_path(@category,item),  class:"btn btn-outline-primary"%>
-        </td>
-        <td class="align-middle">
-          <% if @cart.include?(item)%>
+        <% if @cart.include?(item)%>
             <%=link_to '+', increase_item_qty_category_item_path(@category, item), method: :post,  class:"btn btn-outline-success"%>
             <%=link_to 'Remove from cart', remove_from_cart_category_item_path(@category,item), method: :delete,  class:"btn btn-outline-danger"%>
             <%=link_to '-', decrease_item_qty_category_item_path(@category, item), method: :post,  class:"btn btn-outline-dark"%>
           <% else %>
             <%=link_to "Add to cart", add_to_cart_category_item_path(@category,item), method: :post,  class:"btn btn-outline-success"%>
-          <% end %>
-        </td >
-        <td class="align-middle">
-          <%=link_to "Edit this Item",  edit_category_item_path(@category,item),  class:"btn btn-outline-warning" if policy(item).edit?%>
-        </td>
-        <td class="align-middle">
-          <%=link_to "Destroy Item",  category_item_path(@category,item),  method: :delete, class:"btn btn-outline-danger" if policy(item).destroy?%>
-        </td>
-        <%if item&.retire%>
-          <td class="align-middle">
-            <%=link_to "Resume Item", resume_category_item_path(@category,item), method: :post, class:"btn btn-outline-success" if policy(item).edit?%>
-          </td>
-          <%else%>
-          <td class="align-middle">
-            <%=link_to "Rertire Item", retire_category_item_path(@category,item), method: :post, class:"btn btn-outline-dark" if policy(item).edit?%>
-          </td>
+        <% end %>
+        <%=link_to "Edit this Item",  edit_category_item_path(@category,item),  class:"btn btn-outline-warning" if policy(item).edit?%>
+        <%=link_to "Destroy Item",  category_item_path(@category,item),  method: :delete, class:"btn btn-outline-danger" if policy(item).destroy?%>
+        <%if item.retire%>
+        <%=link_to "Resume Item", resume_category_item_path(@category,item), method: :post, class:"btn btn-outline-success" if policy(item).edit?%>
+        <%else%>
+        <%=link_to "Rertire Item", retire_category_item_path(@category,item), method: :post, class:"btn btn-outline-dark" if policy(item).edit?%>
         <%end%>
-      </tr>
-    <%end%>
-    <% end %>
-  </tbody>
-  </table>
-
+      </div>
+</div>
+<% end %>
 <%end%>
-
-
+<%end%>
 </div>

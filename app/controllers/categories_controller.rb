@@ -32,6 +32,7 @@ class CategoriesController < ApplicationController
     @category = Category.new(post_params)
     @category.user = current_user
     authorize @category
+    @category.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg') unless @category.avatar.attached?
     if @category.save
       redirect_to @category, notice: 'Category has been created Successfully'
 
@@ -50,8 +51,8 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    if CategoriesItem.include?(category_id: params[:id])
-      redirect_to root_path, notice: 'Category Has Been Destroyed'
+    if CategoriesItem.find_by(category_id: params[:id])
+      redirect_to root_path, notice: 'CATEGORY CAN NOT BE DESTROY, IT HAS MANY ITEMS'
     else
       Category.destroy(params[:id])
       redirect_to root_path

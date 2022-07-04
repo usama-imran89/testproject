@@ -6,7 +6,7 @@ class ApplicationRecord < ActiveRecord::Base
   protected
 
   def correct_avatar # rubocop:disable Metrics/AbcSize
-    if avatar.attached? && !avatar.content_type.in?(%w(image/jpeg image/png))
+    if avatar.attached? && !avatar.content_type.in?(%w[image/jpeg image/png])
       errors.add(:avatar, 'must be a JPEG or PNG')
     elsif avatar.attached? == false
       errors.add(:avatar, 'Required')

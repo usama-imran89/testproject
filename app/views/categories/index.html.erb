@@ -1,24 +1,32 @@
 <div class="container">
 
   <%=link_to "Add New Category",  new_category_path,  class:"btn btn-primary" if policy(Category).new?%>
+<%@categories.each do |category|%>
+<div class="row">
+    <div class="col-md-4 my-4 ">
+      <div class="bg-image hover-overlay shadow-1-strong rounded ripple" data-mdb-ripple-color="light">
+          <%=image_tag category.avatar ,width: "400px", height: "150px" if category.avatar.attached?%>
 
-  <div class="container text-center">
-    <table class="table">
-    <tbody>
-      <%@categories.each do |category|%>
-      <tr>
-        <td class="align-middle"><h4><%=category.name%></h4></td>
-        <td> <%=image_tag category.avatar ,width: "400px", height: "150px" if category.avatar.attached?%></td>
-        <td class="align-middle"><%=link_to "Show", category_path(category),  class:"btn btn-primary"%></td>
+          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+          </a>
+      </div>
+    </div>
 
-          <td class="align-middle"><%=link_to "Edit this Category", edit_category_path(category) ,  class:"btn btn-warning" if policy(category).edit?%></td>
-          <td class="align-middle"><%= link_to "Destroy", category_path(category), method: :delete, class:"btn btn-outline-danger" if policy(category).destroy?%></td>
+    <div class="col-md-8 mb-4">
+      <h4><%=category.name%></h4>
+      <p>
+       Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ratione
+       necessitatibus itaque error alias repellendus nemo reiciendis aperiam quisquam
+       minus ipsam reprehenderit commodi ducimus, in dicta aliquam eveniet dignissimos
+       magni.
+       </p>
 
-         </tr>
-      <% end %>
-    </tbody>
-    </table>
+      <%=link_to "Show", category_path(category),  class:"btn btn-primary"%>
+      <%=link_to "Edit this Category", edit_category_path(category) ,  class:"btn btn-warning" if policy(category).edit?%>
+      <%= link_to "Destroy", category_path(category), method: :delete, class:"btn btn-outline-danger" if policy(category).destroy?%>
 
-  </div>
+      </div>
+</div>
+<% end %>
 
 </div>

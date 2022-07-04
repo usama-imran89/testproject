@@ -3,7 +3,7 @@
 module CartsHelper
   def count_items
     count = 0
-    session[:cart].each do |key, value|
+    session[:cart].each do |_key, value|
       count += value
     end
     count

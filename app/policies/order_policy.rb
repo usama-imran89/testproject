@@ -12,14 +12,14 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user&.role == 'admin'
+    @user&.admin?
   end
 
   def update?
-    @user&.role == 'admin'
+    @user&.admin?
   end
 
   def change_status?
-    (@user.role == 'admin' && @record.status != 'delivered')
+    @user&.admin?
   end
 end

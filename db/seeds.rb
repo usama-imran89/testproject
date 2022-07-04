@@ -18,23 +18,23 @@ cat = Category.create!(user_id: usr.id, name: 'Biryani')
 cat.avatar.attach(io: File.open(Rails.root.join('app/assets/images/buryani.jpg')), filename: 'buryani.jpg')
 # Create Items
 itm = Item.create!(title: 'Mumbai biryani', description: 'Biryani', user_id: usr.id, price: '22', retire: 'false', quantity: '22')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/buryani.jpg')), filename: 'buryani.jpg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 itm = Item.create!(title: 'Kolkata biryani', description: 'Biryani', user_id: usr.id, price: '43', retire: 'false', quantity: '531')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/buryani.jpg')), filename: 'buryani.jpg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 itm = Item.create!(title: 'Sindhi Biryani', description: 'Biryani', user_id: usr.id, price: '43', retire: 'false', quantity: '11')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/buryani.jpg')), filename: 'buryani.jpg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 itm = Item.create!(title: 'Malabar biryani', description: 'Biryani', user_id: usr.id, price: '44', retire: 'false', quantity: '33')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/buryani.jpg')), filename: 'buryani.jpg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 itm = Item.create!(title: 'Ambur biryani', description: 'Biryani', user_id: usr.id, price: '41', retire: 'false', quantity: '22')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/buryani.jpg')), filename: 'buryani.jpg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 
@@ -43,15 +43,15 @@ cat = Category.create!(user_id: usr.id, name: 'Pizza')
 cat.avatar.attach(io: File.open(Rails.root.join('app/assets/images/pizza.jpg')), filename: 'pizza.jpg')
 # Create Items
 itm = Item.create!(title: 'Veggie Pizza', description: 'Pizza', user_id: usr.id, price: '22', retire: 'false', quantity: '22')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/pizza.jpg')), filename: 'pizza.jpg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 itm = Item.create!(title: 'Pepperoni Pizza', description: 'Pizza', user_id: usr.id, price: '43', retire: 'false', quantity: '531')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/pizza.jpg')), filename: 'pizza.jpg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 itm = Item.create!(title: 'BBQ Chicken Pizza', description: 'Pizza', user_id: usr.id, price: '43', retire: 'false', quantity: '11')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/pizza.jpg')), filename: 'pizza.jpg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 
@@ -60,19 +60,19 @@ cat = Category.create!(user_id: usr.id, name: 'Drinks')
 cat.avatar.attach(io: File.open(Rails.root.join('app/assets/images/drinks.jpeg')), filename: 'drinks.jpeg')
 # Create Items
 itm = Item.create!(title: 'Coke', description: 'Drinks', user_id: usr.id, price: '22', retire: 'false', quantity: '22')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/drinks.jpeg')), filename: 'drinks.jpeg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 itm = Item.create!(title: 'Pepsi', description: 'Drinks', user_id: usr.id, price: '43', retire: 'false', quantity: '531')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/drinks.jpeg')), filename: 'drinks.jpeg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 itm = Item.create!(title: '7Up', description: 'Drink', user_id: usr.id, price: '43', retire: 'false', quantity: '11')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/drinks.jpeg')), filename: 'drinks.jpeg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 itm = Item.create!(title: 'Sting', description: 'Drink', user_id: usr.id, price: '43', retire: 'false', quantity: '11')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/drinks.jpeg')), filename: 'drinks.jpeg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 
@@ -81,19 +81,19 @@ cat = Category.create!(user_id: usr.id, name: 'Steak')
 cat.avatar.attach(io: File.open(Rails.root.join('app/assets/images/steak.jpeg')), filename: 'steak.jpeg')
 # Create Items
 itm = Item.create!(title: 'Garllic Steak', description: 'Steak', user_id: usr.id, price: '22', retire: 'false', quantity: '22')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/steak.jpeg')), filename: 'steak.jpeg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 itm = Item.create!(title: 'Cheezy Steak', description: 'Steak', user_id: usr.id, price: '43', retire: 'false', quantity: '531')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/steak.jpeg')), filename: 'steak.jpeg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 itm = Item.create!(title: 'Masala Steak', description: 'Steak', user_id: usr.id, price: '43', retire: 'false', quantity: '11')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/steak.jpeg')), filename: 'steak.jpeg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 itm = Item.create!(title: 'Smokey Steak', description: 'Steak', user_id: usr.id, price: '43', retire: 'false', quantity: '11')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/steak.jpeg')), filename: 'steak.jpeg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 
@@ -102,18 +102,18 @@ cat = Category.create!(user_id: usr.id, name: 'Chinese')
 cat.avatar.attach(io: File.open(Rails.root.join('app/assets/images/chines.jpeg')), filename: 'chines.jpeg')
 # Create Items
 itm = Item.create!(title: 'Shandong Cuisine', description: 'Chiese', user_id: usr.id, price: '22', retire: 'false', quantity: '22')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/chines.jpeg')), filename: 'chines.jpeg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 itm = Item.create!(title: 'Zhejiang', description: 'Chiese', user_id: usr.id, price: '43', retire: 'false', quantity: '531')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/chines.jpeg')), filename: 'chines.jpeg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 itm = Item.create!(title: 'Fujian', description: 'Chiese', user_id: usr.id, price: '43', retire: 'false', quantity: '11')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/chines.jpeg')), filename: 'chines.jpeg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
 itm = Item.create!(title: 'Szechuan', description: 'Chiese', user_id: usr.id, price: '43', retire: 'false', quantity: '11')
-itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/chines.jpeg')), filename: 'chines.jpeg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)

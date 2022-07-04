@@ -15,10 +15,10 @@ AllCops:
     - 'bin/**/*'
 
 Layout/LineLength:
-  Max: 120
+  Max: 150
 
 Metrics/MethodLength:
-  Max: 120
+  Max: 150
 
 Metrics/BlockLength:
   Exclude:
