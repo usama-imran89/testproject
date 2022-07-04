@@ -6,6 +6,8 @@ class OrdersController < ApplicationController
   before_action :filtered_orders, only: %i[delivered pending canceled]
   before_action only: %i[show] do
     @order = Order.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render '/layouts/record_not_found'
   end
   layout 'dinnerdash'
   include OrdersHelper
