@@ -31,7 +31,7 @@
   </div>
   <div class="mb-3">
     <%= form.label :avatar%><br>
-    <%= form.file_field :avatar %>
+    <%= form.file_field :avatar, type: 'file', accept: 'image/*' %>
   </div>
   <div class="mb-3">
     <%= form.label :category %><br>

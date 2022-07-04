@@ -14,7 +14,7 @@
    </div>
   <div class="mb-3">
     <%= form.label :avatar%><br>
-    <%= form.file_field :avatar %>
+    <%= form.file_field :avatar,type: 'file', accept: 'image/*' %>
   </div>
   <%= form.submit "Submit", class: "btn btn-primary" %>
 </div>
