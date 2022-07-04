@@ -44,7 +44,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
@@ -63,14 +63,14 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
 end
-#for rubocop
+# for rubocop
 group :development, :test do
   gem 'rubocop'
-  gem 'rubocop-rspec'
-  gem 'rubocop-performance'
   gem 'rubocop-minitest' # or gem 'rubocop-rspec' depending on your test suite
+  gem 'rubocop-performance'
   gem 'rubocop-rails'
-  end
+  gem 'rubocop-rspec'
+end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

@@ -5,6 +5,8 @@ class CategoriesController < ApplicationController
   before_action :load_cart
   before_action only: %i[edit show update] do
     @category = Category.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render '/layouts/record_not_found'
   end
   layout 'dinnerdash'
 
@@ -30,6 +32,7 @@ class CategoriesController < ApplicationController
     @category = Category.new(post_params)
     @category.user = current_user
     authorize @category
+    @category.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg') unless @category.avatar.attached?
     if @category.save
       redirect_to @category, notice: 'Category has been created Successfully'
 
@@ -41,15 +44,15 @@ class CategoriesController < ApplicationController
   def update
     authorize @category
     if @category.update(post_params)
-      redirect_to @category, notice: "Category Is Updated Successfully"
+      redirect_to @category, notice: 'Category Is Updated Successfully'
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    if CategoriesItem.include?(category_id: params[:id])
-      redirect_to root_path, notice: 'hwllo'
+    if CategoriesItem.find_by(category_id: params[:id])
+      redirect_to root_path, notice: 'CATEGORY CAN NOT BE DESTROY, IT HAS MANY ITEMS'
     else
       Category.destroy(params[:id])
       redirect_to root_path

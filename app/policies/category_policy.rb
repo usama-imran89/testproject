@@ -14,7 +14,7 @@ class CategoryPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user&.role == 'admin'
+    @user&.admin?
   end
 
   def new?
@@ -22,11 +22,11 @@ class CategoryPolicy < ApplicationPolicy
   end
 
   def create?
-    @user&.role == 'admin'
+    @user&.admin?
   end
 
   def update?
-    @user&.role == 'admin'
+    @user&.admin?
   end
 
   def show
@@ -34,6 +34,6 @@ class CategoryPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user&.role == 'admin'
+    @user&.admin?
   end
 end

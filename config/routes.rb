@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'categories#index'
   devise_for :users
   resources :categories do
-    resources :items, except: %i[show] do
+    resources :items do
       member do
         post 'retire'
         post 'resume'
@@ -22,8 +22,6 @@ Rails.application.routes.draw do
       get 'canceled'
     end
   end
-  resources :items, only: %i[show]
   resources :carts, only: %i[index]
-  # delete "categories/:category_id/items/:id", to: 'items#remove_from_cart', as: 'remove_from_cart'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

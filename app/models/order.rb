@@ -5,9 +5,4 @@ class Order < ApplicationRecord
   has_many :orders_items, dependent: :restrict_with_exception
   has_many :orders, through: :orders_items
   enum status: { pending: 0, delivered: 1, cancelled: 2 }
-  after_initialize do
-    if new_record?
-      self.status ||= :pending
-    end
-  end
 end

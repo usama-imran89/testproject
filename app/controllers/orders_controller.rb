@@ -8,14 +8,16 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
   layout 'dinnerdash'
-
+  include OrdersHelper
   def index
     @orders = policy_scope(Order)
   end
 
   def show
+    authorize @order
     @order_detail = OrdersItem.where(order_id: @order.id)
     @items = @order_detail.collect { |detail| Item.where(id: detail.item_id) }.flatten
+    @category = @order_detail.collect { |detail| CategoriesItem.where(item_id: detail.item_id) }.flatten
   end
 
   def create
@@ -33,7 +35,12 @@ class OrdersController < ApplicationController
     authorize @order
   end
 
-  def update;end
+  def update
+    params['order']['change_status']
+    @order = Order.find(params[:id])
+    @order.update(status: (params['order']['change_status']).to_i)
+    redirect_to @order, notice: 'STATUS HAS BEEN UPDATED'
+  end
 
   def pending
     @orders = @filtered_orders.where(status: 'pending')
@@ -53,9 +60,9 @@ class OrdersController < ApplicationController
   private
 
   def check_out # rubocop:disable Metrics/AbcSize
-    if !session[:cart].empty?
+    unless session[:cart].empty?
       @order.user_id = current_user.id
-      @order.total_price = cal_price
+      @order.total_price = cal_price(@cart)
       @order.save
       session[:cart].each_key do |key|
         @order.orders_items.build(item_id: key, quantity: session[:cart][key].to_i)
@@ -63,14 +70,6 @@ class OrdersController < ApplicationController
       @save_keys = session[:cart].keys
       session[:cart].clear
     end
-  end
-
-  def cal_price
-    sum = 0
-    @cart.each do |item|
-      sum += session[:cart][item.id.to_s] * item.price
-    end
-    sum
   end
 
   def filtered_orders

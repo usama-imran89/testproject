@@ -14,7 +14,7 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user&.role == 'admin'
+    @user&.admin?
   end
 
   def new?
@@ -26,7 +26,7 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def update?
-    @user&.role == 'admin'
+    @user&.admin?
   end
 
   def show
@@ -34,6 +34,6 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user&.role == 'admin'
+    @user&.admin?
   end
 end
