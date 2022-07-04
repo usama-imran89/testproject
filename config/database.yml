@@ -89,5 +89,5 @@ test:
 production:
   <<: *default
   database: dinnerdash_production
-  username: dinnerdash
-  password: <%= ENV['DINNERDASH_DATABASE_PASSWORD'] %>
+  username: dev
+  password:  Usama8991
