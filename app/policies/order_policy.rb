@@ -12,7 +12,7 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def show?
-    record.user_id == user.id || @user&.admin?
+    (record.user_id == user.id) || @user&.admin?
   end
 
   def edit?
