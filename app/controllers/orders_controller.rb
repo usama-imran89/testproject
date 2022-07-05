@@ -9,7 +9,6 @@ class OrdersController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     render '/layouts/record_not_found'
   end
-  layout 'dinnerdash'
   include OrdersHelper
   def index
     @orders = policy_scope(Order)
@@ -17,9 +16,7 @@ class OrdersController < ApplicationController
 
   def show
     authorize @order
-    @order_detail = OrdersItem.where(order_id: @order.id)
-    @items = @order_detail.collect { |detail| Item.where(id: detail.item_id) }.flatten
-    @category = @order_detail.collect { |detail| CategoriesItem.where(item_id: detail.item_id) }.flatten
+    @items = @order.items
   end
 
   def create

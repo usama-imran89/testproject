@@ -1,4 +1,4 @@
-<%=form_for [@category, @item] do |form| %>
+<%=form_with model:@item , local: true do |form| %>
 <% if  @item.errors.any? %>
     <ul>
     <%  @item.errors.full_messages.each do |msg| %>
@@ -35,7 +35,7 @@
   </div>
   <div class="mb-3">
     <%= form.label :category %><br>
-    <%= form.select :new_category, options_from_collection_for_select(Category.all, :id, :name, @category.id), :selected =>params[:new_category]%>
+    <%= form.select :new_category, options_from_collection_for_select(Category.all, :id, :name, select_category_id(@item)), :selected =>params[:new_category]%>
   </div>
   <%= form.submit "Update", class: "btn btn-primary" %>
 </div>

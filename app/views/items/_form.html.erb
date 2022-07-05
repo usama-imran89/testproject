@@ -26,7 +26,7 @@
     <%= form.number_field :quantity, :required => true%>
   </div>
   <div class="mb-3">
-    <%= form.label :retire, value: false%><br>
+    <%= form.label :retire, value: false, id: 'retire-btn'%><br>
     <%= form.check_box :retire , :checked => @item.retire %>
   </div>
   <div class="mb-3">

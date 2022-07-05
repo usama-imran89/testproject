@@ -2,7 +2,7 @@
 <%=link_to "All Categories",   categories_path,  class:"btn btn-primary"%>
 <%=link_to "My Cart", carts_path,  class:"btn btn-warning"%>
 <% if policy(Category).new? %>
-  <%=link_to "Add new Item", new_category_item_path(@category,@item) ,  class:"btn btn-primary float-right"%>
+  <%=link_to "Add new Item",new_category_item_path(@category,@item) ,  class:"btn btn-primary float-right"%>
   <br my-5/>
   <h5 class="text-text-left mx-3">Total Items In Category: <%= @items.count%></h5>
 <% end %>
@@ -36,20 +36,20 @@
        minus ipsam reprehenderit commodi ducimus, in dicta aliquam eveniet dignissimos
        magni.
        </p>
-        <%=link_to "Show this Item", category_item_path(@category,item),  class:"btn btn-outline-primary"%>
+        <%=link_to "Show this Item", item_path(item),  class:"btn btn-outline-primary"%>
         <% if @cart.include?(item)%>
-            <%=link_to '+', increase_item_qty_category_item_path(@category, item), method: :post,  class:"btn btn-outline-success"%>
-            <%=link_to 'Remove from cart', remove_from_cart_category_item_path(@category,item), method: :delete,  class:"btn btn-outline-danger"%>
-            <%=link_to '-', decrease_item_qty_category_item_path(@category, item), method: :post,  class:"btn btn-outline-dark"%>
+            <%=link_to '+', increase_item_qty_item_path(item), method: :post,  class:"btn btn-outline-success", id: 'increment-btn', remote: true%>
+            <%=link_to 'Remove from cart',  remove_from_cart_item_path(item), method: :delete,  class:"btn btn-outline-danger"%>
+            <%=link_to '-', decrease_item_qty_item_path(item), method: :post,  class:"btn btn-outline-dark"%>
           <% else %>
-            <%=link_to "Add to cart", add_to_cart_category_item_path(@category,item), method: :post,  class:"btn btn-outline-success"%>
+            <%=link_to "Add to cart", add_to_cart_item_path(item), method: :post,  class:"btn btn-outline-success"%>
         <% end %>
-        <%=link_to "Edit this Item",  edit_category_item_path(@category,item),  class:"btn btn-outline-warning" if policy(item).edit?%>
-        <%=link_to "Destroy Item",  category_item_path(@category,item),  method: :delete, class:"btn btn-outline-danger" if policy(item).destroy?%>
+        <%=link_to "Edit this Item", edit_item_path(@category,item), method: :get, class:"btn btn-outline-warning" if policy(item).edit?%>
+        <%=link_to "Destroy Item",  item_path(item),  method: :delete, class:"btn btn-outline-danger" if policy(item).destroy?%>
         <%if item.retire%>
-        <%=link_to "Resume Item", resume_category_item_path(@category,item), method: :post, class:"btn btn-outline-success" if policy(item).edit?%>
+        <%=link_to "Resume Item", resume_item_path(item), method: :post, class:"btn btn-outline-success" if policy(item).edit?%>
         <%else%>
-        <%=link_to "Rertire Item", retire_category_item_path(@category,item), method: :post, class:"btn btn-outline-dark" if policy(item).edit?%>
+        <%=link_to "Rertire Item", retire_item_path(item), method: :post, class:"btn btn-outline-dark" if policy(item).edit?%>
         <%end%>
       </div>
 </div>
