@@ -3,7 +3,7 @@
 class ItemsController < ApplicationController
   rescue_from ActiveRecord::InvalidForeignKey, with: :belongs_to_entity
   rescue_from ActiveRecord::DeleteRestrictionError, with: :belongs_to_entity
-  before_action :find_item, only: %i[edit update show retire resume increase_item_qty]
+  before_action :find_item, only: %i[edit update show destroy retire resume increase_item_qty]
   before_action :find_catgory, only: %i[new create edit]
   before_action :before_create_action, only: %i[create]
   before_action do
@@ -40,8 +40,12 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    Item.destroy(params[:id])
-    redirect_to session.delete(:return_to), notice: 'ITEM HAS BEEN DELETED'
+    if OrdersItem.find_by(item_id: @item.id)
+      redirect_to session.delete(:return_to), warning: 'ITEM Belongs TO AN ORDER YOU CANT DELETE IT'
+    else
+      @item.destroy
+      redirect_to session.delete(:return_to), danger: 'ITEM HAS BEEN DELETED'
+    end
   end
 
   def add_to_cart
@@ -50,33 +54,33 @@ class ItemsController < ApplicationController
     else
       session[:cart][params[:id]] = 1
     end
-    redirect_to session.delete(:return_to), notice: 'ITEM HAS BEEN ADDED'
+    redirect_to session.delete(:return_to), success: 'ITEM HAS BEEN ADDED'
   end
 
   def increase_item_qty
     session[:cart][params[:id]] += 1 unless session[:cart][params[:id]] + 1 > @item.quantity
-    redirect_to session.delete(:return_to), notice: 'YOU INCREASE ITEM QTY BY 1'
+    redirect_to session.delete(:return_to), success: 'YOU INCREASE ITEM QTY BY 1'
   end
 
   def remove_from_cart
     session[:cart].delete(params[:id]) if session[:cart].include?(params[:id])
-    redirect_to session.delete(:return_to), notice: 'ITEM HAS BEEN REMOVED FROM YOUR CART'
+    redirect_to session.delete(:return_to), warning: 'ITEM HAS BEEN REMOVED FROM YOUR CART'
   end
 
   def decrease_item_qty
     session[:cart][params[:id]] -= 1 if (session[:cart][params[:id]] - 1) >= 0
     session[:cart].delete(params[:id]) if session[:cart][params[:id]].zero?
-    redirect_to session.delete(:return_to), notice: "1 ITEM HAS BEEN REMOVED FROM CART"
+    redirect_to session.delete(:return_to), warning: '1 ITEM HAS BEEN REMOVED FROM CART'
   end
 
   def retire
     @item.update(retire: true)
-    redirect_to session.delete(:return_to)
+    redirect_to session.delete(:return_to), warning: 'ITEM RETIRED'
   end
 
   def resume
     @item.update(retire: false)
-    redirect_to session.delete(:return_to)
+    redirect_to session.delete(:return_to), success: 'ITEM RESUMED'
   end
 
   private
@@ -93,6 +97,8 @@ class ItemsController < ApplicationController
 
   def find_catgory
     @category = Category.find(params[:category_id])
+  rescue ActiveRecord::RecordNotFound
+    render '/layouts/record_not_found'
   end
 
   def belongs_to_entity
