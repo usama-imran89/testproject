@@ -3,11 +3,7 @@
 class CategoriesController < ApplicationController
   before_action :initialize_session
   before_action :load_cart
-  before_action only: %i[edit show update] do
-    @category = Category.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render '/layouts/record_not_found'
-  end
+  before_action :find_category, only: %i[edit show update]
   def index
     @categories = Category.all
   end
@@ -60,5 +56,11 @@ class CategoriesController < ApplicationController
 
   def post_params
     params.require(:category).permit(:name, :avatar)
+  end
+
+  def find_category
+    @category = Category.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render '/layouts/record_not_found'
   end
 end

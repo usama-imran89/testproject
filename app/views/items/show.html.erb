@@ -7,8 +7,11 @@
       <h6>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ratione necessitatibus itaque error alias repellendus nemo </h6>
       <h3>Price: <%= @item.price %></h3>
       <%if @item.avatar.attached?%>
-       <span class=""> <%=image_tag @item.avatar, width: "350px"%> </span>
+        <span class="">
+          <%=image_tag @item.avatar, width: "350px"%>
+        </span>
       <% end %>
+    </div>
   </div>
 </div>
 

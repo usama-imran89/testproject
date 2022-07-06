@@ -7,7 +7,7 @@
       <%=link_to "Delivered Orders", delivered_orders_path,class:"btn btn-outline-success"%>
     </div>
     <div class="col-2">
-      <%=link_to "Canceled Orders",  cancelled_orders_path, class:"btn btn-outline-danger"%>
+      <%=link_to "Canceled Orders", cancelled_orders_path, class:"btn btn-outline-danger"%>
     </div>
   </div>
 
@@ -24,17 +24,17 @@
         </tr>
       </thead>
       <tbody>
-          <%@orders.each do |order|%>
-
-                <tr>
-                <th scope="row"><%=order.id%></th>
-                <td><%=order.created_at%></td>
-                <td><%=order.status%></td>
-                <td><%=order.total_price%></td>
-                <td><%=order.status%></td>
-                <td><%= link_to "Detail", order_path(order) , class:"btn btn-outline-primary"%></td>
-              </tr>
-
+        <%@orders.each do |order|%>
+          <tr>
+            <th scope="row">
+              <%=order.id%>
+            </th>
+            <td><%=order.created_at%></td>
+            <td><%=order.status%></td>
+            <td><%=order.total_price%></td>
+            <td><%=order.status%></td>
+            <td><%= link_to "Detail", order_path(order) , class:"btn btn-outline-primary"%></td>
+          </tr>
         <%end%>
       </tbody>
     </table>

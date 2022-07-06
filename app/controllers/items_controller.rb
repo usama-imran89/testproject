@@ -3,7 +3,7 @@
 class ItemsController < ApplicationController
   rescue_from ActiveRecord::InvalidForeignKey, with: :belongs_to_entity
   rescue_from ActiveRecord::DeleteRestrictionError, with: :belongs_to_entity
-  before_action :find_item, only: %i[edit update show destroy retire resume increase_item_qty]
+  before_action :find_item, only: %i[edit update show destroy retire resume increase_item_qty decrease_item_qty]
   before_action :find_catgory, only: %i[new create edit]
   before_action :before_create_action, only: %i[create]
   before_action do
@@ -20,9 +20,9 @@ class ItemsController < ApplicationController
 
   def create
     if @item.save
-      redirect_to category_path(@category), notice: 'ITEM HAS BEEN CREATED'
+      redirect_to category_path(@category), success: 'ITEM HAS BEEN CREATED'
     else
-      render :new, notice: 'ITEM HAS NOT BEEN CREATED SUCCESSFULLY'
+      render :new, danger: 'ITEM HAS NOT BEEN CREATED'
     end
   end
 
@@ -33,14 +33,14 @@ class ItemsController < ApplicationController
   def update
     @item.categories_items.build(category_id: params[:item]['new_category'])
     if @item.update(post_params)
-      redirect_to @item, notice: 'ITEM HAS BEEN UPDATED'
+      redirect_to @item, success: 'ITEM HAS BEEN UPDATED'
     else
-      render :edit, notice: 'CATEGORY HAS NOT BEEN EDITED'
+      render :edit, danger: 'CATEGORY HAS NOT BEEN EDITED'
     end
   end
 
   def destroy
-    if  OrdersItem.find_by(item_id: @item.id)
+    if OrdersItem.find_by(item_id: @item.id)
       redirect_to session.delete(:return_to), warning: 'ITEM Belongs TO AN ORDER YOU CANT DELETE IT'
     else
       @item.destroy
@@ -62,7 +62,6 @@ class ItemsController < ApplicationController
 
   def increase_item_qty
     session[:cart][params[:id]] += 1 unless session[:cart][params[:id]] + 1 > @item.quantity
-
     respond_to do |format|
       format.html
       format.js
@@ -77,7 +76,10 @@ class ItemsController < ApplicationController
   def decrease_item_qty
     session[:cart][params[:id]] -= 1 if (session[:cart][params[:id]] - 1) >= 0
     session[:cart].delete(params[:id]) if session[:cart][params[:id]].zero?
-    redirect_to session.delete(:return_to), warning: '1 ITEM HAS BEEN REMOVED FROM CART'
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def retire
