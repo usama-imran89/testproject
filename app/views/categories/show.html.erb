@@ -14,9 +14,10 @@
 <%else%>
 
 <%@items.each do |item|%>
+
 <%if ((item.retire || !item.retire)  && current_user&.role == 'admin') || (!item.retire )%>
-<div class="row container">
-    <div class="col-md-4 my-4 ">
+<div class="row container" id='item-show'>
+    <div class="col-md-4 my-4">
       <div class="bg-image hover-overlay shadow-1-strong rounded ripple" data-mdb-ripple-color="light">
           <%=image_tag item.avatar, width: "200px" if item.avatar.attached?%>
           <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
@@ -38,14 +39,15 @@
        </p>
         <%=link_to "Show this Item", item_path(item),  class:"btn btn-outline-primary"%>
         <% if @cart.include?(item)%>
-            <%=link_to '+', increase_item_qty_item_path(item), method: :post,  class:"btn btn-outline-success", id: 'increment-btn', remote: true%>
+            <%=link_to '+', increase_item_qty_item_path(item), method: :post,  class:"btn btn-outline-success", id: 'increase_item_btn_'+item.id.to_s, remote: true%>
             <%=link_to 'Remove from cart',  remove_from_cart_item_path(item), method: :delete,  class:"btn btn-outline-danger"%>
             <%=link_to '-', decrease_item_qty_item_path(item), method: :post,  class:"btn btn-outline-dark"%>
+            <span id='item-count-<%=item.id%>'><%=session[:cart][item.id.to_s]%></span>
           <% else %>
             <%=link_to "Add to cart", add_to_cart_item_path(item), method: :post,  class:"btn btn-outline-success"%>
         <% end %>
         <%=link_to "Edit this Item", edit_item_path(@category,item), method: :get, class:"btn btn-outline-warning" if policy(item).edit?%>
-        <%=link_to "Destroy Item",  item_path(item),  method: :delete, class:"btn btn-outline-danger" if policy(item).destroy?%>
+        <%=link_to "Destroy Item",  item_path(item),  method: :delete, class:"btn btn-outline-danger", remote: true if policy(item).destroy?%>
         <%if item.retire%>
         <%=link_to "Resume Item", resume_item_path(item), method: :post, class:"btn btn-outline-success" if policy(item).edit?%>
         <%else%>

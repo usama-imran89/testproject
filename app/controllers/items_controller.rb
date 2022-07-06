@@ -40,11 +40,14 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if OrdersItem.find_by(item_id: @item.id)
+    if  OrdersItem.find_by(item_id: @item.id)
       redirect_to session.delete(:return_to), warning: 'ITEM Belongs TO AN ORDER YOU CANT DELETE IT'
     else
       @item.destroy
-      redirect_to session.delete(:return_to), danger: 'ITEM HAS BEEN DELETED'
+      respond_to do |format|
+        format.html
+        format.js
+      end
     end
   end
 
@@ -59,7 +62,11 @@ class ItemsController < ApplicationController
 
   def increase_item_qty
     session[:cart][params[:id]] += 1 unless session[:cart][params[:id]] + 1 > @item.quantity
-    redirect_to session.delete(:return_to), success: 'YOU INCREASE ITEM QTY BY 1'
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def remove_from_cart

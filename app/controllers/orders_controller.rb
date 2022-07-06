@@ -3,7 +3,7 @@
 class OrdersController < ApplicationController
   before_action :load_cart
   before_action :authenticate_user!
-  before_action :filtered_orders, only: %i[delivered pending canceled]
+  before_action :filtered_orders, only: %i[order_status]
   before_action only: %i[show] do
     @order = Order.find(params[:id])
   rescue ActiveRecord::RecordNotFound
@@ -41,20 +41,21 @@ class OrdersController < ApplicationController
     redirect_to @order, notice: 'STATUS HAS BEEN UPDATED'
   end
 
-  def pending
-    @orders = @filtered_orders.where(status: 'pending')
+  def order_status
+    # byebug
+    @orders = @filtered_orders.where(status: @o_status)
     render 'index'
   end
 
-  def delivered
-    @orders = @filtered_orders.where(status: 'delivered')
-    render 'index'
-  end
+  # def delivered
+  #   @orders = @filtered_orders.where(status: 'delivered')
+  #   render 'index'
+  # end
 
-  def canceled
-    @orders = @filtered_orders.where(status: 'cancelled')
-    render 'index'
-  end
+  # def canceled
+  #   @orders = @filtered_orders.where(status: 'cancelled')
+  #   render 'index'
+  # end
 
   private
 
@@ -73,5 +74,6 @@ class OrdersController < ApplicationController
 
   def filtered_orders
     @filtered_orders = policy_scope(Order)
+    @o_status = request.path.split('/')[2]
   end
 end
