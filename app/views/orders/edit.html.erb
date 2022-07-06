@@ -1,23 +1,23 @@
 
 <div class="container">
-<h1>Edit Order Status</h1>
-<%=form_for (@order) do |form| %>
-
-  <% if  @order.errors.any? %>
-    <ul>
-    <% @order.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+  <h1>Edit Order Status</h1>
+  <%=form_for (@order) do |form| %>
+    <% if  @order.errors.any? %>
+      <ul>
+        <% @order.errors.full_messages.each do |msg| %>
+         <li>
+           <%= msg %>
+         </li>
+        <% end %>
+      </ul>
     <% end %>
-    </ul>
+    <div>
+      <%= form.label :status %><br>
+      <%= form.select :change_status, Order.statuses, :selected =>params[:change_status]%>
+    </div>
+    <div>
+      <%= form.submit %>
+    </div>
   <% end %>
-  <div>
-    <%= form.label :status %><br>
-    <%= form.select :change_status, Order.statuses, :selected =>params[:change_status]%>
-  </div>
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
-<%=link_to "Back to pervious page" , orders_path%>
-
+  <%=link_to "Back to pervious page",orders_path%>
 </div>

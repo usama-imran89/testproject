@@ -10,9 +10,9 @@
 
   <body>
    <%= render partial:"/layouts/navbar" %>
-   <% flash.each do |type, msg| %>
+  <% flash.each do |type, msg| %>
     <div class="alert alert-<%= type %>">
-    <%= msg %>
+      <%= msg %>
     </div>
   <% end %>
 

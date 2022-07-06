@@ -1,5 +1,4 @@
 <h1>Items</h1>
-
 <ul>
   <% @items.each do |item| %>
     <li>
@@ -8,13 +7,14 @@
     <li>
       <%= item.description %>
     </li>
-     <li>
+    <li>
       <%= item.price %>
     </li>
     <li>
-    <%= link_to "Edit", edit_item_path(item) %>
+      <%= link_to "Edit", edit_item_path(item) %>
     </li>
-    <li><%= link_to "Destroy", item_path(item), data: {turbo_method: :delete,turbo_confirm: "Are you sure?"} %>
+    <li>
+      <%= link_to "Destroy", item_path(item), data: {turbo_method: :delete,turbo_confirm: "Are you sure?"} %>
     </li>
   <% end %>
 </ul>

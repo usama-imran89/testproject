@@ -1,0 +1,2 @@
+var btn = document.getElementById('item-count-<%=@item.id%>')
+btn.innerHTML = <%=session[:cart][@item.id.to_s]%>
