@@ -48,7 +48,7 @@ class CategoriesController < ApplicationController
       redirect_to root_path, danger: 'CATEGORY CAN NOT BE DESTROY, IT HAS MANY ITEMS'
     else
       Category.destroy(params[:id])
-      redirect_to root_path, success: 'CATEGORY HAS BEEN DESTROYED SUCCESSFULLY'
+      redirect_to root_path, success: 'CATEGORY CAN NOT BE DESTROY, IT HAS MANY ITEMS'
     end
   end
 
