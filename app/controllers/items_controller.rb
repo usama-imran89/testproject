@@ -3,7 +3,7 @@
 class ItemsController < ApplicationController
   rescue_from ActiveRecord::InvalidForeignKey, with: :belongs_to_entity
   rescue_from ActiveRecord::DeleteRestrictionError, with: :belongs_to_entity
-  before_action :find_item, only: %i[edit update show destroy retire resume increase_item_qty decrease_item_qty]
+  before_action :find_item, only: %i[edit update show destroy retire resume increase_item_qty decrease_item_qty add_to_cart]
   before_action :find_catgory, only: %i[new create edit]
   before_action :before_create_action, only: %i[create]
   before_action do
@@ -52,11 +52,7 @@ class ItemsController < ApplicationController
   end
 
   def add_to_cart
-    if session[:cart].include?(params[:id])
-      redirect_to session.delete(:return_to)
-    else
-      session[:cart][params[:id]] = 1
-    end
+    session[:cart][params[:id]] = 1 unless session[:cart].include?(params[:id])
     redirect_to session.delete(:return_to), success: 'ITEM HAS BEEN ADDED'
   end
 

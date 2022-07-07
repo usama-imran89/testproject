@@ -36,9 +36,14 @@
                 <p>$<%=@order.total_price%></p>
               </div>
             </div>
-            <p class="lead fw-bold mb-4 pb-2" style="color: #f37a27;">Order Status:>
+            <p class="lead fw-bold mb-4 pb-2" style="color: #f37a27;">Order Status:
              <span><%=@order.status.capitalize()%></span>
             </p>
+            <%if cal_date_diff(@order) == ''%>
+              <h6>Status Not Updated Yet</h6>
+            <%else%>
+              <h6>Status Updated at: <%=cal_date_diff(@order)%></h6>
+            <%end%>
             <%=link_to "Change Status",  edit_order_path(@order), class:"btn btn-outline-primary" if policy(@order).edit?%>
             <br/>
             <%=link_to "Back To Main Page", root_path, style:"color: #f37a27;"%>
