@@ -8,4 +8,12 @@ module OrdersHelper
     end
     sum
   end
+
+  def cal_date_diff(order)
+    if (order.updated_at - order.created_at).positive?
+      order.updated_at
+    else
+      ''
+    end
+  end
 end

@@ -40,11 +40,11 @@
         <%=link_to "Show this Item", item_path(item),  class:"btn btn-outline-primary"%>
         <% if @cart.include?(item)%>
             <%=link_to '+', increase_item_qty_item_path(item), method: :post,  class:"btn btn-outline-success",  remote: true%>
-            <%=link_to 'Remove from cart',  remove_from_cart_item_path(item), method: :delete,  class:"btn btn-outline-danger"%>
+            <%=link_to 'Remove from cart',  remove_from_cart_item_path(item), method: :delete,  class:"btn btn-outline-danger", id: 'remove-from-cart-btn-'+item.id.to_s, remote: true%>
             <%=link_to '-', decrease_item_qty_item_path(item), method: :post,  class:"btn btn-outline-dark", remote: true%>
             <span id='item-count-<%=item.id%>'><%=session[:cart][item.id.to_s]%></span>
         <% else %>
-            <%=link_to "Add to cart", add_to_cart_item_path(item), method: :post,  class:"btn btn-outline-success", id: 'add_to_cart_btn-'+item.id.to_s, remote: true%>
+            <%=link_to "Add to cart", add_to_cart_item_path(item), method: :post,  class:"btn btn-outline-success", id: 'add-to-cart-btn-'+item.id.to_s, remote: true%>
         <% end %>
         <%=link_to "Edit this Item", edit_item_path(@category,item), method: :get, class:"btn btn-outline-warning" if policy(item).edit?%>
         <%=link_to "Destroy Item",  item_path(item),  method: :delete, class:"btn btn-outline-danger", remote: true if policy(item).destroy?%>
