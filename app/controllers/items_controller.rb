@@ -43,6 +43,7 @@ class ItemsController < ApplicationController
     if OrdersItem.find_by(item_id: @item.id)
       redirect_to session.delete(:return_to), warning: 'ITEM Belongs TO AN ORDER YOU CANT DELETE IT'
     else
+      @item_id =  @item.id
       @item.destroy
       respond_to do |format|
         format.html
