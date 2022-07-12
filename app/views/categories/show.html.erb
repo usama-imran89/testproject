@@ -16,7 +16,7 @@
 <%@items.each do |item|%>
 
 <%if ((item.retire || !item.retire)  && current_user&.role == 'admin') || (!item.retire )%>
-<div class="row container" id='item-show'>
+<div class="row container" id='item-show-<%=item.id.to_s%>'>
     <div class="col-md-4 my-4">
       <div class="bg-image hover-overlay shadow-1-strong rounded ripple" data-mdb-ripple-color="light">
           <%=image_tag item.avatar, width: "200px" if item.avatar.attached?%>
