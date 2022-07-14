@@ -2,10 +2,6 @@
 
 class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-
-  def record_not_found
-    render '/layouts/record_not_found'
-  end
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   include Pundit::Authorization
@@ -33,5 +29,11 @@ class ApplicationController < ActionController::Base
 
   def load_cart
     @cart = Item.find(session[:cart].keys)
+  end
+
+  private
+
+  def record_not_found
+    render '/layouts/record_not_found'
   end
 end

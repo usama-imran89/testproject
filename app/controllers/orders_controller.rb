@@ -4,8 +4,8 @@ class OrdersController < ApplicationController
   before_action :load_cart
   before_action :authenticate_user!
   before_action :filtered_orders, only: %i[order_status]
-  before_action :find_order, only: %i[show]
-  before_action :authorize_order, except: %i[index create show]
+  before_action :find_order, only: %i[show edit update]
+  before_action :authorize_order, only: %i[edit update]
   include OrdersHelper
   def index
     @orders = policy_scope(Order)
@@ -24,21 +24,16 @@ class OrdersController < ApplicationController
         session[:cart].clear
         redirect_to order_path(@order)
       else
-        render status: :not_found
+        render :new, danger: 'Order HAS NOT BEEN CREATED'
       end
     end
   end
 
-  def edit
-    @order = Order.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @order = Order.find(params[:id])
-    Order.transaction do
-      @order.update!(status: (params['order']['change_status']).to_i)
-      redirect_to @order, success: 'STATUS HAS BEEN UPDATED'
-    end
+    @order.update!(status: post_params['change_status'].to_i)
+    redirect_to @order, success: 'STATUS HAS BEEN UPDATED'
   end
 
   def order_status
@@ -47,6 +42,10 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def post_params
+    params.require(:order).permit(:change_status)
+  end
 
   def check_out
     @order.user_id = current_user.id

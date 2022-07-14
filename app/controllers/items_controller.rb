@@ -17,25 +17,21 @@ class ItemsController < ApplicationController
   end
 
   def create
-    Item.transaction do
-      if @item.save!
-        redirect_to category_path(@category), success: 'ITEM HAS BEEN CREATED'
-      else
-        render :new, danger: 'ITEM HAS NOT BEEN CREATED'
-      end
+    if @item.save
+      redirect_to category_path(@category), success: 'ITEM HAS BEEN CREATED'
+    else
+      render :new, danger: 'ITEM HAS NOT BEEN CREATED'
     end
   end
 
   def edit; end
 
   def update
-    Item.transaction do
-      @item.categories_items.build(category_id: params[:item]['new_category'])
-      if @item.update!(post_params)
-        redirect_to @item, success: 'ITEM HAS BEEN UPDATED'
-      else
-        render :edit, danger: 'CATEGORY HAS NOT BEEN EDITED'
-      end
+    @item.categories_items.build(category_id: params[:item]['new_category'])
+    if @item.update(post_params)
+      redirect_to @item, success: 'ITEM HAS BEEN UPDATED'
+    else
+      render :edit, danger: 'ITEM HAS NOT BEEN EDITED'
     end
   end
 

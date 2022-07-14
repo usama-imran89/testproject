@@ -22,11 +22,11 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(post_params)
     @category.user = current_user
-    unless @category.avatar.attached?
-      @category.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
-    end
     Category.transaction do
-      if @category.save!
+      unless @category.avatar.attached?
+        @category.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+      end
+      if @category.save
         redirect_to @category, success: 'CATEGORY HAS BEEN CREATED SUCCESSFULLY'
       else
         render :new, danger: 'CATEGORY HAS NOT BEEN CREATED'
@@ -35,17 +35,15 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    Category.transaction do
-      if @category.update!(post_params)
-        redirect_to @category, success: 'CATEGORY HAS BEEN UPDATED SUCCESSFULLY'
-      else
-        render :edit, danger: 'CATEGORY HAS NOT BEEN UPDATED'
-      end
+    if @category.update(post_params)
+      redirect_to @category, success: 'CATEGORY HAS BEEN UPDATED SUCCESSFULLY'
+    else
+      render :edit, danger: 'CATEGORY HAS NOT BEEN UPDATED'
     end
   end
 
   def destroy
-    if CategoriesItem.find_by(category_id: @category.id)
+    if CategoriesItem.exists?(category_id: @category.id)
       redirect_to root_path, danger: 'CATEGORY CAN NOT BE DESTROY, IT HAS MANY ITEMS'
     else
       @category.destroy
