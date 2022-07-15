@@ -8,6 +8,7 @@ AllCops:
   # Exclude auto-generated files by Rails
   TargetRubyVersion: 2.7
   TargetRailsVersion: 5.2
+  NewCops: enable
   Exclude:
     - 'db/schema.rb'
     - 'node_modules/**/*'
@@ -15,10 +16,10 @@ AllCops:
     - 'bin/**/*'
 
 Layout/LineLength:
-  Max: 150
+  Max: 120
 
 Metrics/MethodLength:
-  Max: 150
+  Max: 23
 
 Metrics/BlockLength:
   Exclude:

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   include Pundit::Authorization
@@ -12,8 +13,7 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    flash[:danger] = 'You are not authorized to perform this action.'
-    redirect_back(fallback_location: root_path)
+    redirect_to root_path, danger: 'You are not authorized to perform this action.'
   end
 
   protected
@@ -29,5 +29,11 @@ class ApplicationController < ActionController::Base
 
   def load_cart
     @cart = Item.find(session[:cart].keys)
+  end
+
+  private
+
+  def record_not_found
+    render '/layouts/record_not_found'
   end
 end
