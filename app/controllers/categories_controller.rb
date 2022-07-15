@@ -3,59 +3,51 @@
 class CategoriesController < ApplicationController
   before_action :initialize_session
   before_action :load_cart
-  before_action only: %i[edit show update] do
-    @category = Category.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render '/layouts/record_not_found'
-  end
-  layout 'dinnerdash'
-
+  before_action :find_category, only: %i[edit show update destroy]
+  before_action :authorize_category, except: %i[index show]
   def index
     @categories = Category.all
   end
 
   def show
-    @categories_items = CategoriesItem.where(category_id: @category.id)
-    @items = @categories_items.collect { |detail| Item.where(id: detail.item_id) }.flatten
+    @items = @category.items
   end
 
-  def edit
-    authorize @category
-  end
+  def edit; end
 
   def new
     @category = Category.new
-    authorize @category
   end
 
   def create
     @category = Category.new(post_params)
     @category.user = current_user
-    authorize @category
-    @category.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg') unless @category.avatar.attached?
-    if @category.save
-      redirect_to @category, notice: 'Category has been created Successfully'
-
-    else
-      render :new, status: :unprocessable_entity
+    Category.transaction do
+      unless @category.avatar.attached?
+        @category.avatar.attach(io: File.open(Rails.root.join('app/assets/images/no_img.jpg')), filename: 'no_img.jpg')
+      end
+      if @category.save
+        redirect_to @category, success: 'CATEGORY HAS BEEN CREATED SUCCESSFULLY'
+      else
+        render :new, danger: 'CATEGORY HAS NOT BEEN CREATED'
+      end
     end
   end
 
   def update
-    authorize @category
     if @category.update(post_params)
-      redirect_to @category, notice: 'Category Is Updated Successfully'
+      redirect_to @category, success: 'CATEGORY HAS BEEN UPDATED SUCCESSFULLY'
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, danger: 'CATEGORY HAS NOT BEEN UPDATED'
     end
   end
 
   def destroy
-    if CategoriesItem.find_by(category_id: params[:id])
-      redirect_to root_path, notice: 'CATEGORY CAN NOT BE DESTROY, IT HAS MANY ITEMS'
+    if CategoriesItem.exists?(category_id: @category.id)
+      redirect_to root_path, danger: 'CATEGORY CAN NOT BE DESTROY, IT HAS MANY ITEMS'
     else
-      Category.destroy(params[:id])
-      redirect_to root_path
+      @category.destroy
+      redirect_to root_path, success: 'CATEGORY CAN NOT BE DESTROY, IT HAS MANY ITEMS'
     end
   end
 
@@ -63,5 +55,13 @@ class CategoriesController < ApplicationController
 
   def post_params
     params.require(:category).permit(:name, :avatar)
+  end
+
+  def find_category
+    @category = Category.find(params[:id])
+  end
+
+  def authorize_category
+    authorize Category
   end
 end

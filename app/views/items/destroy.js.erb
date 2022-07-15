@@ -1,0 +1,6 @@
+alert("Item Has Been Deleted")
+var division = document.getElementById('item-show-<%=@item.id%>')
+division.style.display = 'none'
+var totalItems = document.getElementById('total-items')
+totalItems.innerHTML = totalItems.innerHTML -1
+

@@ -3,8 +3,9 @@
 Rails.application.routes.draw do
   root 'categories#index'
   devise_for :users
+  # patch '/items/:id', to: 'items#update'
   resources :categories do
-    resources :items do
+    resources :items, except: %i[edit], shallow: true do
       member do
         post 'retire'
         post 'resume'
@@ -15,11 +16,12 @@ Rails.application.routes.draw do
       end
     end
   end
+  get '/categories/:category_id/items/:id', to: 'items#edit', as: 'edit_item'
   resources :orders, except: %i[destroy] do
     collection do
-      get 'pending'
-      get 'delivered'
-      get 'canceled'
+      get 'pending', to: 'orders#order_status'
+      get 'delivered', to: 'orders#order_status'
+      get 'cancelled', to: 'orders#order_status'
     end
   end
   resources :carts, only: %i[index]

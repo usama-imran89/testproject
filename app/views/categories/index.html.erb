@@ -1,9 +1,9 @@
-<div class="container">
 
+<div class="container">
   <%=link_to "Add New Category",  new_category_path,  class:"btn btn-primary" if policy(Category).new?%>
 <%@categories.each do |category|%>
 <div class="row">
-    <div class="col-md-4 my-4 ">
+    <div class="col-md-4 my-4 id='category-show-<%=category.id.to_s%>">
       <div class="bg-image hover-overlay shadow-1-strong rounded ripple" data-mdb-ripple-color="light">
           <%=image_tag category.avatar ,width: "400px", height: "150px" if category.avatar.attached?%>
 
