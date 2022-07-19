@@ -65,12 +65,15 @@ group :test do
 end
 # for rubocop
 group :development, :test do
+  gem 'factory_bot_rails'
+  gem 'rspec-rails'
   gem 'rubocop'
   gem 'rubocop-minitest' # or gem 'rubocop-rspec' depending on your test suite
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
-  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+  gem 'simplecov', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
