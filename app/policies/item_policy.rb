@@ -29,11 +29,19 @@ class ItemPolicy < ApplicationPolicy
     @user&.admin?
   end
 
-  def show
+  def show?
     true
   end
 
   def destroy?
+    @user&.admin?
+  end
+
+  def retire?
+    @user&.admin?
+  end
+
+  def resume?
     @user&.admin?
   end
 end
