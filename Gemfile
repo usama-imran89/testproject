@@ -67,7 +67,9 @@ group :test do
 end
 # for rubocop
 group :development, :test do
+  gem 'database_cleaner'
   gem 'factory_bot_rails'
+  gem 'launchy'
   gem 'rspec-rails'
   gem 'rubocop'
   gem 'rubocop-minitest' # or gem 'rubocop-rspec' depending on your test suite
