@@ -7,6 +7,10 @@ class CategoriesController < ApplicationController
   before_action :authorize_category, except: %i[index show]
   def index
     @categories = Category.all
+    respond_to do |format|
+      format.html
+      format.json { render json: @categories, status: :ok }
+    end
   end
 
   def show
@@ -29,7 +33,8 @@ class CategoriesController < ApplicationController
       if @category.save
         redirect_to @category, success: 'CATEGORY HAS BEEN CREATED SUCCESSFULLY'
       else
-        render :new, danger: 'CATEGORY HAS NOT BEEN CREATED'
+        flash.now[:danger] = 'CATEGORY HAS NOT BEEN CREATED'
+        render :new
       end
     end
   end
@@ -38,7 +43,8 @@ class CategoriesController < ApplicationController
     if @category.update(post_params)
       redirect_to @category, success: 'CATEGORY HAS BEEN UPDATED SUCCESSFULLY'
     else
-      render :edit, danger: 'CATEGORY HAS NOT BEEN UPDATED'
+      flash.now[:danger] = 'CATEGORY HAS NOT BEEN UPDATED'
+      render :edit
     end
   end
 
@@ -47,7 +53,7 @@ class CategoriesController < ApplicationController
       redirect_to root_path, danger: 'CATEGORY CAN NOT BE DESTROY, IT HAS MANY ITEMS'
     else
       @category.destroy
-      redirect_to root_path, success: 'CATEGORY CAN NOT BE DESTROY, IT HAS MANY ITEMS'
+      redirect_to root_path, success: 'CATEGORY DESTROY SUCCESSFULLY'
     end
   end
 

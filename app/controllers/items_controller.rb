@@ -20,18 +20,20 @@ class ItemsController < ApplicationController
     if @item.save
       redirect_to category_path(@category), success: 'ITEM HAS BEEN CREATED'
     else
-      render :new, danger: 'ITEM HAS NOT BEEN CREATED'
+      flash.now[:danger] = 'ITEM HAS NOT BEEN CREATED'
+      render :new
     end
   end
 
   def edit; end
 
   def update
-    @item.categories_items.build(category_id: params[:item]['new_category'])
-    if @item.update(post_params)
+    @item.categories_items.build(category_id: post_params[:new_category].to_i)
+    if @item.update(post_params.except(:new_category))
       redirect_to @item, success: 'ITEM HAS BEEN UPDATED'
     else
-      render :edit, danger: 'ITEM HAS NOT BEEN EDITED'
+      flash.now[:danger] = 'ITEM HAS NOT BEEN EDITED'
+      render :edit
     end
   end
 
@@ -85,7 +87,7 @@ class ItemsController < ApplicationController
   private
 
   def post_params
-    params.require(:item).permit(:title, :description, :price, :avatar, :retire, :quantity)
+    params.require(:item).permit(:title, :description, :price, :avatar, :retire, :quantity, :new_category)
   end
 
   def authorize_item
@@ -98,10 +100,6 @@ class ItemsController < ApplicationController
 
   def find_catgory
     @category = Category.find(params[:category_id])
-  end
-
-  def belongs_to_entity
-    redirect_to @category, success: 'Can not  Destroy because this is belongs to an order You Just Retire This Item'
   end
 
   def before_create_action
