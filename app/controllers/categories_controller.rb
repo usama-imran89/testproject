@@ -7,6 +7,10 @@ class CategoriesController < ApplicationController
   before_action :authorize_category, except: %i[index show]
   def index
     @categories = Category.all
+    respond_to do |format|
+      format.html
+      format.json { render json: @categories, status: :ok }
+    end
   end
 
   def show

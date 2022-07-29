@@ -52,6 +52,7 @@ RSpec.describe 'Categories', type: :request do
     context 'when category will edit' do
       it 'tests the edit fo category' do
         get edit_category_path(cat.id)
+        expect(assigns(:category).class.name).to eq('Category')
         expect(response).to render_template('edit')
         expect(response).to have_http_status(:ok)
       end

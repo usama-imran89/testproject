@@ -67,6 +67,7 @@ RSpec.describe 'Items', type: :request do
         itm.categories_items.build(category_id: category.id)
         itm.save
         get edit_item_path(category.id, itm.id)
+        expect(assigns(:item).class.name).to eq('Item')
         expect(response).to render_template('edit')
         expect(response).to have_http_status(:ok)
       end
