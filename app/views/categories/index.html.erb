@@ -15,10 +15,7 @@
     <div class="col-md-8 mb-4">
       <h4><%=category.name%></h4>
       <p>
-       Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ratione
-       necessitatibus itaque error alias repellendus nemo reiciendis aperiam quisquam
-       minus ipsam reprehenderit commodi ducimus, in dicta aliquam eveniet dignissimos
-       magni.
+       <%=Faker::Lorem.paragraph(sentence_count: 19, supplemental: false, random_sentences_to_add: 4) %>
        </p>
 
       <%=link_to "Show", category_path(category),  class:"btn btn-primary"%>

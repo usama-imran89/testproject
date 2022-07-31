@@ -3,8 +3,8 @@
   <div class="card-body">
     <div class="mb-3">
       <h4><%= @item.title %></h4>
-      <h5>Description:</h5>
-      <h6>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ratione necessitatibus itaque error alias repellendus nemo </h6>
+      <h4>Description:</h4>
+      <p><%=Faker::Lorem.paragraph(sentence_count: 9, supplemental: false, random_sentences_to_add: 4)%></p>
       <h3>Price: <%= @item.price %></h3>
       <%if @item.avatar.attached?%>
         <span class="">

@@ -284,3 +284,18 @@ itm = Item.create!(
 itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/chines.jpeg')), filename: 'chines.jpeg')
 # attach category with items
 CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
+# create category
+cat = Category.create!(user_id: usr.id, name: 'Sea Food')
+cat.avatar.attach(io: File.open(Rails.root.join('app/assets/images/seafood.jpeg')), filename: 'chines.jpeg')
+# Create Items
+itm = Item.create!(
+  title: 'Crayfish',
+  description: 'Sea Food',
+  user_id: usr.id,
+  price: '22',
+  retire: 'false',
+  quantity: '22'
+)
+itm.avatar.attach(io: File.open(Rails.root.join('app/assets/images/seafood.jpeg')), filename: 'seafood.jpeg')
+# attach category with items
+CategoriesItem.create!(category_id: cat.id, item_id: itm.id)
